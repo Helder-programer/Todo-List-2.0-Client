@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, ChangeEvent } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../../../services/auth';
 import '../../../styles/Auth.css';
 
@@ -14,6 +14,8 @@ function LoginForm() {
     const passwordInputRef = useRef<HTMLInputElement>(null);
     const btnLoginRef = useRef<HTMLButtonElement>(null);
     const loaderRef = useRef<HTMLDivElement>(null);
+    const [error, setError] = useState<boolean>(false);
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState<IInputs>({ email: '', password: '' });
 
 
@@ -60,12 +62,13 @@ function LoginForm() {
             loaderRef.current!.style.display = 'block';
             await AuthService.login(inputs);
 
+            return navigate('/checklists');
         } catch (error) {
             console.log(error);
+            setError(true);
             btnLoginRef.current!.style.display = 'block';
             loaderRef.current!.style.display = 'none';
         }
-
     }
 
     return (
@@ -82,6 +85,9 @@ function LoginForm() {
                         <input ref={passwordInputRef} type="password" placeholder="PASSWORD" value={inputs.password} id="password" onKeyUp={btnLoginStyle} onChange={handleChange} />
                         <label htmlFor="">PASSWORD</label>
                     </div>
+                    {
+                        error && <p className='text-danger m-0' style={{ fontSize: '10pt' }}>Incorret e-mail or password</p>
+                    }
                     <button ref={btnLoginRef} className="btn-login" type="submit" disabled><AiOutlineArrowRight /></button>
                     <div ref={loaderRef} className="loader"></div>
                 </form>

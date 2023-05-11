@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Stack } from 'react-bootstrap';
-import LoginForm from '../../../components/auth/login';
+import LoginForm from '../../../components/auth/LoginForm';
 import '../../../styles/Auth.css';
 import Header from '../../../components/header';
 

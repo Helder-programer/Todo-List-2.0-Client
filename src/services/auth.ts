@@ -9,16 +9,24 @@ interface IUser {
     updated_at: string;
 }
 
-const AuthService = {
-    login: async (params: { email: string, password: string }) => {
+class AuthService {
+    public async login(params: { email: string, password: string }) {
+
         let response = await Api.post<{ token: string, user: IUser }>('/users/login', params);
         localStorage.setItem('token', JSON.stringify(response.data.token));
         localStorage.setItem('user', JSON.stringify(response.data.user));
-    },
-    register: async (params: { username: string, email: string, password: string }) => {
-        await Api.post('/users/register', params);
+
+
+    }
+
+    public async register(params: { username: string, email: string, password: string }) {
+        await Api.post('/users/', params);
+    }
+
+    public logout() {
+        localStorage.clear();
     }
 }
 
 
-export default AuthService;
+export default new AuthService;

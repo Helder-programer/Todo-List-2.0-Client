@@ -1,7 +1,7 @@
 @import url('custom.css');
 
 .tdl-navbar {
-    background-color: var(--tdl-purple);
+    background-color: var(--tdl-blue);
     border-bottom: 1px solid var(--tdl-black);
 }
 

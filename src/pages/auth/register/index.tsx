@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RegisterForm from '../../../components/auth/register';
+import RegisterForm from '../../../components/auth/RegisterForm';
 
 
 function Register() {

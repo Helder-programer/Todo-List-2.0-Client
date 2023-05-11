@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, ChangeEvent } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../../../services/auth';
 import '../../../styles/Auth.css';
 
@@ -16,8 +16,9 @@ function RegisterForm() {
     const passwordInputRef = useRef<HTMLInputElement>(null);
     const btnRegisterRef = useRef<HTMLButtonElement>(null);
     const loaderRef = useRef<HTMLDivElement>(null);
+    const [error, setError] = useState<boolean>(false);
     const [inputs, setInputs] = useState<IInputs>({ username: '', email: '', password: '' });
-
+    const navigate = useNavigate();
 
     const inputAnimation = () => {
         if (usernameInputRef.current) usernameInputRef.current.classList.add('inputForAnimation');
@@ -39,18 +40,18 @@ function RegisterForm() {
     }, []);
 
     const btnRegisterStyle = () => {
-            if (inputs.username != '' && inputs.email != '' && inputs.password != '') {
+        if (inputs.username != '' && inputs.email != '' && inputs.password != '') {
 
-                btnRegisterRef.current!.style.backgroundColor = 'rgb(67, 199, 243)';
-                btnRegisterRef.current!.style.opacity = '1';
-                btnRegisterRef.current!.style.color = 'white';
-                btnRegisterRef.current!.disabled = false;
+            btnRegisterRef.current!.style.backgroundColor = 'rgb(67, 199, 243)';
+            btnRegisterRef.current!.style.opacity = '1';
+            btnRegisterRef.current!.style.color = 'white';
+            btnRegisterRef.current!.disabled = false;
 
-            } else {
-                btnRegisterRef.current!.removeAttribute('style');
-                btnRegisterRef.current!.children[0].removeAttribute('style');
-            }
-        
+        } else {
+            btnRegisterRef.current!.removeAttribute('style');
+            btnRegisterRef.current!.children[0].removeAttribute('style');
+        }
+
     }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -62,10 +63,12 @@ function RegisterForm() {
         try {
             btnRegisterRef.current!.style.display = 'none';
             loaderRef.current!.style.display = 'block';
-            // await AuthService.login(inputs);
+            await AuthService.register(inputs);
 
+            return navigate('/login');
         } catch (error) {
             console.log(error);
+            setError(true);
             btnRegisterRef.current!.style.display = 'block';
             loaderRef.current!.style.display = 'none';
         }
@@ -83,13 +86,16 @@ function RegisterForm() {
                         <label htmlFor="">USERNAME</label>
                     </div>
                     <div className="text">
-                        <input ref={emailInputRef} type="text" placeholder="E-MAIL" value={inputs.email} onKeyUp={btnRegisterStyle} id="email" onChange={handleChange} autoComplete="off" autoFocus />
+                        <input ref={emailInputRef} type="text" placeholder="E-MAIL" value={inputs.email} onKeyUp={btnRegisterStyle} id="email" onChange={handleChange} autoComplete="off" />
                         <label htmlFor="">E-MAIL</label>
                     </div>
                     <div className="text">
                         <input ref={passwordInputRef} type="password" placeholder="PASSWORD" value={inputs.password} onKeyUp={btnRegisterStyle} id="password" onChange={handleChange} />
                         <label htmlFor="">PASSWORD</label>
                     </div>
+                    {
+                        error && <p className='text-danger m-0' style={{ fontSize: '10pt' }}>E-mail already exists</p>
+                    }
                     <div ref={loaderRef} className="loader"></div>
                     <button ref={btnRegisterRef} className="btn-login" type="submit" disabled><AiOutlineArrowRight /></button>
                 </form>
