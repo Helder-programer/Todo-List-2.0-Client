@@ -1,0 +1,167 @@
+@import url('custom.css');
+
+.card-login {
+    background-color: rgb(250, 250, 250);
+    padding: 50px;
+    width: 30%;
+    border: none;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 10px;
+}
+
+.card-login form {
+    display: flex;
+    flex-direction: column;
+}
+
+.text input {
+    display: block;
+    width: 100%;
+    border: none;
+    height: 55px;
+    outline: none;
+    border-radius: 3px;
+    padding: 0px 5px 0px 8px;
+    color: black;
+    font-size: 14pt;
+    background-color: rgb(235, 235, 235);
+    border: 2px solid rgba(0, 0, 0, 0.0);
+}
+
+.inputForAnimation {
+    animation: inputAnimation 0.7s forwards;
+}
+
+.text input::placeholder {
+    font-size: 10pt;
+    padding-left: 10px;
+    color: black;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.text label {
+    color: var(--tdl-blue);
+    opacity: 0;
+    position: relative;
+    font-weight: 500;
+    animation: labelAnimation 1s forwards;
+}
+
+
+.text input:focus~label,
+.text input:not(:placeholder-shown)~label {
+    opacity: 1;
+    top: -57px;
+    left: 8px;
+    font-size: 9pt;
+    transition: all 0.5s;
+}
+
+.text input:focus,
+.text input:not(:placeholder-shown) {
+    border: 2px solid var(--tdl-blue);
+    padding-top: 10px;
+    transition: border 0.2s linear;
+}
+
+
+.text input:focus::placeholder,
+.text input:not(:placeholder-shown)::placeholder {
+    font-size: 5pt;
+    opacity: 0;
+    position: relative;
+    transition: opacity 0.2s linear, font-size 0.2s linear, top 0.2s;
+}
+
+
+.text input:placeholder-shown:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease-in-out;
+}
+
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+
+
+.btn-login {
+    align-self: center;
+    margin-top: 15px;
+    display: block;
+    font-size: 20pt;
+    outline: none;
+    padding: 20px 20px;
+    border-radius: 20px;
+    border: none;
+    color: rgb(27, 27, 61);
+    background-color: transparent;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    opacity: 0.4;
+}
+
+.btn-login:hover {
+    opacity: 0.8 !important;
+    transition: opacity 0.1s ease-out !important;
+}
+
+
+.informations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: monospace;
+    font-weight: bold;
+    margin-top: 10px;
+    opacity: 0.6;
+}
+
+/* Loader Animation */
+
+.loader {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    border: 3px solid #e5e5e5;
+    border-top-color: rgba(0, 205, 205, 0.8);
+    border-left-color: rgba(0, 205, 205, 0.7);
+    border-bottom-color: rgba(0, 205, 205, 0.6);
+    border-radius: 50%;
+    align-self: center;
+    animation: rotating 1s infinite linear;
+    display: none;
+}
+
+
+@keyframes rotating {
+    to {
+        transform: rotate(2turn);
+
+    }
+}
+
+@keyframes inputAnimation {
+    from {
+        width: 0%;
+        opacity: 0;
+    }
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+
+@keyframes labelAnimation {
+    from {
+        left: -5px;
+    }
+    to {
+        left: 10px;
+    }
+}

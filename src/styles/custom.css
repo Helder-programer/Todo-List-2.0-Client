@@ -1,0 +1,17 @@
+:root {
+    --tdl-purple: #7A3CDF;
+    --tdl-blue: #0887E2;
+    --tdl-red: #C80000;
+    --tdl-gray: #DEE2E6;
+    --tdl-black: #000;
+    --tdl-white: #fff;
+}
+
+.btn-custom-white {
+    color: var(--tdl-white);
+}
+
+
+.btn-custom-white:hover {
+    background-color: var(--tdl-gray);
+}
