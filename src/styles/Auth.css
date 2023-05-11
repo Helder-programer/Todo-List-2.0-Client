@@ -1,5 +1,10 @@
 @import url('custom.css');
 
+.auth-container {
+    overflow: hidden;
+    background-color: var(--tdl-blue);
+}
+
 .card-login {
     background-color: rgb(250, 250, 250);
     padding: 50px;
@@ -124,8 +129,8 @@ a {
 /* Loader Animation */
 
 .loader {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     border-radius: 10px;
     border: 3px solid #e5e5e5;
     border-top-color: rgba(0, 205, 205, 0.8);
