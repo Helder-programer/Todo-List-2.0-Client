@@ -17,7 +17,12 @@ const NewChecklistForm = ({ show, handleClose, create }: IProps) => {
 
         await create(checklistName);        
 
+        resetInputs();
         handleClose();
+    }
+
+    const resetInputs = () => {
+        setChecklistName('');
     }
 
 

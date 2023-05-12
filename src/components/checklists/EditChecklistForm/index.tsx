@@ -26,8 +26,12 @@ const EditChecklistForm = ({ show, handleClose, update, currentChecklist }: IPro
 
         await update(currentChecklist.checklist_id, checklistName);
 
-
+        resetInputs();
         handleClose();
+    }
+
+    const resetInputs = () => {
+        setChecklistName('');
     }
 
 

@@ -32,8 +32,8 @@ const ChecklistsList = ({ checklists, remove, selectChecklist, setShow }: IProps
                                     <Row>
                                         <Col className='d-flex flex-column'>
                                             <span className='fs-4 mb-4'>{checklist.name}</span>
-                                            <span className='fs-6 fw-light mb-2'>Criação:     {moment(checklist.created_at).format('DD/MM/YYYY')}</span>
-                                            <span className='fs-6 fw-light'>Atualização:     {moment(checklist.updated_at).format('DD/MM/YYYY')}</span>
+                                            <span className='fs-6 fw-light mb-2'><span className='me-2'>Created at:</span>{moment(checklist.created_at).format('DD/MM/YYYY')}</span>
+                                            <span className='fs-6 fw-light'><span className='me-2'>Updated at:</span>{moment(checklist.updated_at).format('DD/MM/YYYY')}</span>
                                         </Col>
                                         <Col md="auto" className='d-flex flex-column gap-3 justify-content-center' id='actions-to-checklist'>
                                             <i className='text-warning' style={{ cursor: 'pointer' }} onClick={() => { selectChecklist(checklist.checklist_id); setShow(true) }}><AiFillEdit /></i>
