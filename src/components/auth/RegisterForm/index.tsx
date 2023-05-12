@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, ChangeEvent } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../../../services/auth';
-import '../../../styles/Auth.css';
+import '../../../styles/Auth.scss';
 
 interface IInputs {
     username: string;

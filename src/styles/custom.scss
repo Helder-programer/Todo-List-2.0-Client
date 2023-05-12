@@ -1,41 +1,49 @@
-:root {
-    --tdl-purple: #7A3CDF;
-    --tdl-blue: #0887E2;
-    --tdl-gray: #DEE2E6;
-    --tdl-black: #000;
-    --tdl-white: #fff;
-    --tdl-medium-gray: #f3f5ff;
-}
 
-.btn-custom-white {
-    color: var(--tdl-white);
-}
+$tdl-purple: #7A3CDF;
+$tdl-blue: #0887E2;
+$tdl-gray: #DEE2E6;
+$tdl-black: #000;
+$tdl-white: #fff;
+$tdl-medium-gray: #f3f5ff;
 
 
-.btn-custom-white:hover, .btn-custom-white:focus  {
-    background-color: var(--tdl-gray);
-}
+$theme-colors: (
+    "primary": $tdl-blue
+);
 
-.btn-custom-gray {
-    color: var(--tdl-black);
-}
 
-.btn-custom-gray:hover, .btn-custom-gray:focus {
-    background-color: var(--tdl-gray);
-}
 
-.btn-custom-blue {
-    background-color: var(--tdl-blue);
-    color: var(--tdl-white);
-    transition: all 0.3s;
-}
 
-.btn-custom-blue:hover, .btn-custom-blue:focus {
-    filter: brightness(95%);
-    color: var(--tdl-white);
-    background-color: var(--tdl-blue);
-}
 
-.btn-custom-blue:not(:hover) {
-    filter: brightness(100%);
-}
+// .btn-custom-white {
+//     color: var(--tdl-white);
+// }
+
+
+// .btn-custom-white:hover, .btn-custom-white:focus  {
+//     background-color: var(--tdl-gray);
+// }
+
+// .btn-custom-gray {
+//     color: var(--tdl-black);
+// }
+
+// .btn-custom-gray:hover, .btn-custom-gray:focus {
+//     background-color: var(--tdl-gray);
+// }
+
+// .btn-custom-blue {
+//     background-color: var(--tdl-blue);
+//     color: var(--tdl-white);
+//     transition: all 0.3s;
+// }
+
+// .btn-custom-blue:hover, .btn-custom-blue:focus {
+//     filter: brightness(95%);
+//     color: var(--tdl-white);
+//     background-color: var(--tdl-blue);
+// }
+
+// .btn-custom-blue:not(:hover) {
+//     filter: brightness(100%);
+// }
