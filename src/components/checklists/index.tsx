@@ -55,7 +55,8 @@ function Checklists() {
 
     const create = async (name: string) => {
         try {
-
+            await ChecklistService.create(name);
+            await getChecklists();
         }catch(error) {
             console.log(error);
         }

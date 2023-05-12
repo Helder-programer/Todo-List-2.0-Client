@@ -12,7 +12,7 @@
 }
 
 
-.btn-custom-white:hover {
+.btn-custom-white:hover, .btn-custom-white:focus  {
     background-color: var(--tdl-gray);
 }
 
@@ -20,7 +20,7 @@
     color: var(--tdl-black);
 }
 
-.btn-custom-gray:hover {
+.btn-custom-gray:hover, .btn-custom-gray:focus {
     background-color: var(--tdl-gray);
 }
 
@@ -30,12 +30,12 @@
     transition: all 0.3s;
 }
 
-.btn-custom-blue:hover {
+.btn-custom-blue:hover, .btn-custom-blue:focus {
     filter: brightness(95%);
     color: var(--tdl-white);
     background-color: var(--tdl-blue);
 }
 
 .btn-custom-blue:not(:hover) {
-    opacity: 1;
+    filter: brightness(100%);
 }

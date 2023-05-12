@@ -4,7 +4,7 @@ class ChecklistService {
     public async index<T>(): Promise<T> {
         const token = JSON.parse(localStorage.getItem('token') ?? '');
 
-        const response = await Api.get<T>('/checklists/', {
+        const response = await Api.get<T>('/checklists', {
             headers: { 'access-token': token }
         });
 
@@ -13,10 +13,18 @@ class ChecklistService {
 
     public async delete(id: number): Promise<void> {
         const token = JSON.parse(localStorage.getItem('token') ?? '');
-        const response = await Api.delete<{ message: string }>(`checklists/${id}`, {
+        await Api.delete<{ message: string }>(`checklists/${id}`, {
             headers: { 'access-token': token }
         });
     }
+
+    public async create(name: string): Promise<void> {
+        const token = JSON.parse(localStorage.getItem('token') ?? '');
+        await Api.post('/checklists', { name }, {
+            headers: { 'acces-token': token }
+        });
+    }
+
 }
 
 
