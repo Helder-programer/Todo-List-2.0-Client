@@ -4,13 +4,26 @@ import LoginPage from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import ChecklistsPage from "./pages/checklists";
 import PrivateRouter from './components/auth/PrivateRouter';
+import PublicRouter from "./components/auth/publicRouter";
 
 function MainRoutes() {
     return (
         <Router>
             <Routes>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={
+                    <PublicRouter>
+                        <LoginPage />
+                    </PublicRouter>
+                } />
+
+
+
+                <Route path="/register" element={
+                    <PublicRouter>
+                        <Register />
+                    </PublicRouter>
+                } />
+                
                 <Route path="/checklists" element={
                     <PrivateRouter>
                         <ChecklistsPage />

@@ -1,7 +1,6 @@
 :root {
     --tdl-purple: #7A3CDF;
     --tdl-blue: #0887E2;
-    --tdl-red: #C80000;
     --tdl-gray: #DEE2E6;
     --tdl-black: #000;
     --tdl-white: #fff;
@@ -15,4 +14,28 @@
 
 .btn-custom-white:hover {
     background-color: var(--tdl-gray);
+}
+
+.btn-custom-gray {
+    color: var(--tdl-black);
+}
+
+.btn-custom-gray:hover {
+    background-color: var(--tdl-gray);
+}
+
+.btn-custom-blue {
+    background-color: var(--tdl-blue);
+    color: var(--tdl-white);
+    transition: all 0.3s;
+}
+
+.btn-custom-blue:hover {
+    filter: brightness(95%);
+    color: var(--tdl-white);
+    background-color: var(--tdl-blue);
+}
+
+.btn-custom-blue:not(:hover) {
+    opacity: 1;
 }

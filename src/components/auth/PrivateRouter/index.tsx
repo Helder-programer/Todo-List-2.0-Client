@@ -1,23 +1,16 @@
-import React, { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { PropsWithChildren } from 'react';
+import { Navigate } from 'react-router-dom';
 
-interface Props {
-    children?: ReactNode;
+interface IProps {
+    children: React.JSX.Element;
 }
 
-const PrivateRouter: React.FC = (props:Props) => {
-    const navigate = useNavigate();
+const PrivateRouter = ({ children }: IProps) => {
     const user = localStorage.getItem('user');
 
-    if (!user) return navigate('/login');
+    if (!user) return <Navigate to='/login'/> 
 
-    return (
-        <>
-            {
-                children
-            }
-        </>
-    )
+    return children;
 }
 
 

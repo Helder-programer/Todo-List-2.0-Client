@@ -9,12 +9,12 @@ interface IChecklist {
     updated_at: string;
 }
 
-interface Props {
+interface IProps {
     checklists: IChecklist[];
     remove(id: number): Promise<void>;
 }
 
-const ChecklistsList: React.FC<Props> = ({ checklists, remove }) => {
+const ChecklistsList = ({ checklists, remove }: IProps) => {
 
     return (
         <>
@@ -30,14 +30,12 @@ const ChecklistsList: React.FC<Props> = ({ checklists, remove }) => {
                                             {checklist.name}
                                         </Col>
                                         <Col md="auto">
-                                            <i className='text-danger' style={{cursor: 'pointer'}}><FaTrash onClick={() => remove(checklist.checklist_id)}/></i>
+                                            <i className='text-danger' style={{ cursor: 'pointer' }}><FaTrash onClick={() => remove(checklist.checklist_id)} /></i>
                                         </Col>
                                     </Row>
                                 </Card.Title>
                                 <Card.Text>
-
                                 </Card.Text>
-                                {/* <Button variant="primary">Go somewhere</Button> */}
                             </Card.Body>
                         </Card>
                     )
