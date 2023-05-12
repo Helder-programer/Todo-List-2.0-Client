@@ -3,7 +3,7 @@ import { Container, Navbar, Button, Dropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
 import AuthService from '../../services/auth';
-import '../../styles/Header.css';
+import '../../styles/Header.scss';
 
 interface Iuser {
     user_id: number;
@@ -36,8 +36,8 @@ function Header() {
                             <Navbar.Text className='p-0'>
                                 <Dropdown>
                                     <Dropdown.Toggle
-                                        className='d-flex align-items-center btn-custom-white border border-2'
-                                        variant=''>
+                                        className='d-flex align-items-center text-light border border-2'
+                                        variant='primary'>
 
                                         <FaUserAlt className='me-2' />
                                         {user.username.toUpperCase()}

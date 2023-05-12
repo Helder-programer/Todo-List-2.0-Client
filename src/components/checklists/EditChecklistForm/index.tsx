@@ -1,21 +1,31 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
-interface IProps {
-    show: boolean;
-    handleClose(): void;
-    create(name: string): Promise<void>;
+interface IChecklist {
+    checklist_id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
 }
 
 
-const NewChecklistForm = ({ show, handleClose, create }: IProps) => {
+interface IProps {
+    show: boolean;
+    handleClose(): void;
+    update(id: number, name: string): Promise<void>;
+    currentChecklist: IChecklist;
+}
+
+
+const EditChecklistForm = ({ show, handleClose, update, currentChecklist }: IProps) => {
     const [checklistName, setChecklistName] = useState<string>('');
 
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        await create(checklistName);        
+        await update(currentChecklist.checklist_id, checklistName);
+
 
         handleClose();
     }
@@ -25,7 +35,7 @@ const NewChecklistForm = ({ show, handleClose, create }: IProps) => {
         <Modal show={show} onHide={handleClose}>
             <Form onSubmit={handleSubmit}>
                 <Modal.Header closeButton>
-                    <Modal.Title>New Checklist</Modal.Title>
+                    <Modal.Title>Edit Checklist</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group className="mb-3">
@@ -54,4 +64,4 @@ const NewChecklistForm = ({ show, handleClose, create }: IProps) => {
     );
 }
 
-export default NewChecklistForm;
+export default EditChecklistForm;

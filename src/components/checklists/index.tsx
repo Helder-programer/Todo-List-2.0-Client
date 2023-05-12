@@ -3,6 +3,8 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import ChecklistsList from './ChecklistsList';
 import ChecklistService from '../../services/checklist';
 import NewChecklistForm from './NewChecklistForm';
+import EditChecklistForm from './EditChecklistForm';
+import '../../styles/Checklists.scss';
 
 interface IChecklist {
     checklist_id: number;
@@ -14,11 +16,36 @@ interface IChecklist {
 function Checklists() {
     const [checklists, setChecklists] = useState<IChecklist[]>([]);
     const [newChecklistFormShow, setNewChecklistFormShow] = useState<boolean>(false);
+    const [editChecklistFormShow, setEditChecklistFormShow] = useState<boolean>(false);
+    const [currentChecklist, setCurrentChecklist] = useState<IChecklist>({ checklist_id: 0, name: '', created_at: '', updated_at: '' });
+
+    useEffect(() => {
+        getChecklists();
+    }, []);
+
+
 
     const handleClose = () => {
         setNewChecklistFormShow(false);
+        setEditChecklistFormShow(false)
     }
 
+    const selectChecklist = (id: number) => {
+        const checklist = checklists.find(checklist => {
+            return checklist.checklist_id == id;
+        });
+
+        setCurrentChecklist(checklist!);
+    }
+
+    const create = async (name: string) => {
+        try {
+            await ChecklistService.create(name);
+            await getChecklists();
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const getChecklists = async () => {
         try {
@@ -30,14 +57,15 @@ function Checklists() {
         }
     }
 
-    useEffect(() => {
-        const get = async () => {
-            getChecklists();
+
+    const update = async (id: number, name: string) => {
+        try {
+            await ChecklistService.update(id, name);
+            await getChecklists();
+        } catch (error) {
+            console.log(error);
         }
-
-        get();
-
-    }, []);
+    }
 
 
     const remove = async (id: number) => {
@@ -53,14 +81,7 @@ function Checklists() {
         }
     }
 
-    const create = async (name: string) => {
-        try {
-            await ChecklistService.create(name);
-            await getChecklists();
-        }catch(error) {
-            console.log(error);
-        }
-    }
+
 
     return (
         <>
@@ -80,9 +101,26 @@ function Checklists() {
                     </Col>
                 </Row>
 
-                <ChecklistsList checklists={checklists} remove={remove} />
+                <ChecklistsList
+                    checklists={checklists}
+                    remove={remove}
+                    selectChecklist={selectChecklist}
+                    setShow={setEditChecklistFormShow}
+                />
 
-                <NewChecklistForm show={newChecklistFormShow} handleClose={handleClose} create={create}/>
+                <NewChecklistForm
+                    show={newChecklistFormShow}
+                    handleClose={handleClose}
+                    create={create}
+                />
+
+
+                <EditChecklistForm
+                    show={editChecklistFormShow}
+                    handleClose={handleClose}
+                    currentChecklist={currentChecklist}
+                    update={update}
+                />
 
             </Container>
         </>
