@@ -30,7 +30,7 @@ function Header() {
             <header className='v-100'>
                 <Navbar className='tdl-navbar p-2'>
                     <Container>
-                        <Navbar.Brand className='text-light fs-4 fst-italic fw-bold'>Todo List 2.0</Navbar.Brand>
+                        <Navbar.Brand className='text-light fs-4 fst-italic fw-bold' onClick={() => navigate('/checklists')} >Todo List 2.0</Navbar.Brand>
                         <Navbar.Toggle />
                         <Navbar.Collapse className="justify-content-end">
                             <Navbar.Text className='p-0'>

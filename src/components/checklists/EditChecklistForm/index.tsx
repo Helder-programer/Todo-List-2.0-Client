@@ -18,7 +18,7 @@ interface IProps {
 
 
 const EditChecklistForm = ({ show, handleClose, update, currentChecklist }: IProps) => {
-    const [checklistName, setChecklistName] = useState<string>('');
+    const [checklistName, setChecklistName] = useState<string>(currentChecklist.name);
 
 
     const handleSubmit = async (event: React.FormEvent) => {

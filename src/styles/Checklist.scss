@@ -1,8 +1,39 @@
 @import './custom.scss';
 
-.checklist-name {
+.task-checkbox+label {
     height: 40px;
     width: 40px;
     border: 1px solid $tdl-gray;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.task-checkbox:checked+label {
+    background-color: $tdl-green;
+    animation: taskCheckedAnimation 1s ease-out;
+}
+
+.task-checkbox:checked+label>i {
+    color: $tdl-white;
+    font-size: 14pt;
+}
+
+
+@keyframes taskCheckedAnimation {
+
+    0% {
+        box-shadow: 0px 0px 0px green;
+        opacity: 0;
+    }
+
+
+    50% {
+        box-shadow: 0px 0px 25px green;
+        opacity: 1;
+    }
+
+    100% {
+        box-shadow: 0px 0px 0px green;
+    }
 }

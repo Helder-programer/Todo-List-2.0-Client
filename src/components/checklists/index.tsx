@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
+
 import ChecklistsList from './list';
 import ChecklistService from '../../services/checklist';
 import NewChecklistForm from './newChecklistForm';
 import EditChecklistForm from './editChecklistForm';
-import '../../styles/Checklists.scss';
 import { IChecklist } from '../../services/checklist';
+import '../../styles/Checklists.scss';
 
 
 function Checklists() {
@@ -83,7 +84,7 @@ function Checklists() {
             <Container className='pt-5' as='section'>
                 <Row className='flex-row align-items-center'>
                     <Col>
-                        <h1>Listas de Tarefas</h1>
+                        <h1>Your Checklists</h1>
                     </Col>
                     <Col md="auto">
                         <Button
@@ -91,7 +92,7 @@ function Checklists() {
                             variant=''
                             onClick={() => setNewChecklistFormShow(true)}
                         >
-                            Nova Checklist
+                            New Checklist
                         </Button>
                     </Col>
                 </Row>

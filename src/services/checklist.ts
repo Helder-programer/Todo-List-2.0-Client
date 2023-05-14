@@ -1,5 +1,5 @@
 import Api from './api';
-import { ITask } from './tasks';
+import { ITask } from './task';
 
 export interface IChecklist {
     checklist_id: number;
