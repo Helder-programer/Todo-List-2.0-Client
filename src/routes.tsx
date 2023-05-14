@@ -5,8 +5,10 @@ import Register from "./pages/auth/register";
 import ChecklistsPage from "./pages/checklists";
 import PrivateRouter from './components/auth/PrivateRouter';
 import PublicRouter from "./components/auth/publicRouter";
+import ChecklistPage from "./pages/checklist";
 
 function MainRoutes() {
+
     return (
         <Router>
             <Routes>
@@ -23,12 +25,14 @@ function MainRoutes() {
                         <Register />
                     </PublicRouter>
                 } />
-                
+
                 <Route path="/checklists" element={
                     <PrivateRouter>
                         <ChecklistsPage />
                     </PrivateRouter>
                 } />
+
+                <Route path="/checklists/:checklistId" element={<ChecklistPage />} />
             </Routes>
         </Router>
     );

@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import ChecklistsList from './ChecklistsList';
+import ChecklistsList from './list';
 import ChecklistService from '../../services/checklist';
-import NewChecklistForm from './NewChecklistForm';
-import EditChecklistForm from './EditChecklistForm';
+import NewChecklistForm from './newChecklistForm';
+import EditChecklistForm from './editChecklistForm';
 import '../../styles/Checklists.scss';
+import { IChecklist } from '../../services/checklist';
 
-interface IChecklist {
-    checklist_id: number;
-    name: string;
-    created_at: string;
-    updated_at: string;
-}
 
 function Checklists() {
     const [checklists, setChecklists] = useState<IChecklist[]>([]);
     const [newChecklistFormShow, setNewChecklistFormShow] = useState<boolean>(false);
     const [editChecklistFormShow, setEditChecklistFormShow] = useState<boolean>(false);
-    const [currentChecklist, setCurrentChecklist] = useState<IChecklist>({ checklist_id: 0, name: '', created_at: '', updated_at: '' });
+    const [currentChecklist, setCurrentChecklist] = useState<IChecklist>({ checklist_id: 0, name: '', created_at: '', updated_at: '', tasks: [] });
 
     useEffect(() => {
         getChecklists();
@@ -85,7 +80,7 @@ function Checklists() {
 
     return (
         <>
-            <Container className='pt-5'>
+            <Container className='pt-5' as='section'>
                 <Row className='flex-row align-items-center'>
                     <Col>
                         <h1>Listas de Tarefas</h1>

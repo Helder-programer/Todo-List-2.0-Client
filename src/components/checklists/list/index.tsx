@@ -1,15 +1,10 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 import { Card, Col, Row, Stack } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
-
-interface IChecklist {
-    checklist_id: number;
-    name: string;
-    created_at: string;
-    updated_at: string;
-}
+import { IChecklist } from '../../../services/checklist';
 
 interface IProps {
     checklists: IChecklist[];
@@ -19,25 +14,29 @@ interface IProps {
 }
 
 const ChecklistsList = ({ checklists, remove, selectChecklist, setShow }: IProps) => {
+    const navigate = useNavigate();
 
     return (
         <>
             <Stack className='pt-3' gap={4}>
                 {
                     checklists.map((checklist, index) =>
-                        <Card key={index}>
-                            <Card.Header as="h6" className='fst-italic'>Checklist</Card.Header>
+                        <Card className="checklist-card" key={index} onClick={() => navigate(`/checklists/${checklist.checklist_id}`)}>
+                            <Card.Header as="h6" className='fst-italic d-flex justify-content-between'>
+                                <span>Checklist</span>
+
+                                <div id="icons">
+                                    <i className='text-warning me-2' style={{ cursor: 'pointer' }} onClick={() => { selectChecklist(checklist.checklist_id); setShow(true) }}><AiFillEdit /></i>
+                                    <i className='text-danger' style={{ cursor: 'pointer' }}><FaTrash onClick={() => remove(checklist.checklist_id)} /></i>
+                                </div>
+                            </Card.Header>
                             <Card.Body>
                                 <Card.Title>
                                     <Row>
                                         <Col className='d-flex flex-column'>
                                             <span className='fs-4 mb-4'>{checklist.name}</span>
-                                            <span className='fs-6 fw-light mb-2'><span className='me-2'>Created at:</span>{moment(checklist.created_at).format('DD/MM/YYYY')}</span>
-                                            <span className='fs-6 fw-light'><span className='me-2'>Updated at:</span>{moment(checklist.updated_at).format('DD/MM/YYYY')}</span>
-                                        </Col>
-                                        <Col md="auto" className='d-flex flex-column gap-3 justify-content-center' id='actions-to-checklist'>
-                                            <i className='text-warning' style={{ cursor: 'pointer' }} onClick={() => { selectChecklist(checklist.checklist_id); setShow(true) }}><AiFillEdit /></i>
-                                            <i className='text-danger' style={{ cursor: 'pointer' }}><FaTrash onClick={() => remove(checklist.checklist_id)} /></i>
+                                            <span className='font-small-light fw-light mb-2'><span className='me-2'>Created at:</span>{moment(checklist.created_at).format('DD/MM/YYYY')}</span>
+                                            <span className='font-small-light fw-light'><span className='me-2'>Updated at:</span>{moment(checklist.updated_at).format('DD/MM/YYYY')}</span>
                                         </Col>
                                     </Row>
                                 </Card.Title>
@@ -48,8 +47,6 @@ const ChecklistsList = ({ checklists, remove, selectChecklist, setShow }: IProps
                     )
                 }
             </Stack>
-
-
         </>
     );
 }

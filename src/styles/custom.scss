@@ -3,7 +3,7 @@ $tdl-blue: #0887E2;
 $tdl-gray: #DEE2E6;
 $tdl-black: #000;
 $tdl-white: #FFF;
-$tdl-medium-gray: #F3F5FF;
+$tdl-medium-gray: #f6f6f6;
 $tdl-red: #DC3545;
 
 
@@ -23,3 +23,7 @@ $theme-colors: (
     background-color: $tdl-gray;
 }
 
+.font-small-light {
+    font-weight: 300;
+    font-size: 11pt;
+}
