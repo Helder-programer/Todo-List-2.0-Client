@@ -7,6 +7,7 @@ import TasksList from './tasks/list';
 import NewTaskForm from './tasks/newTaskForm';
 import TaskService from '../../services/task';
 import '../../styles/Checklist.scss';
+import SearchTask from './tasks/search';
 
 
 interface IProps {
@@ -75,6 +76,7 @@ function Checklist({ checklistId }: IProps) {
                         </Button>
                     </Col>
                 </Row>
+                <SearchTask/>
 
 
                 <TasksList
