@@ -9,8 +9,20 @@ interface IUser {
     updated_at: string;
 }
 
+
+export interface ILoginDTO {
+    email: string;
+    password: string;
+}
+
+export interface IRegisterDTO {
+    username: string;
+    email: string;
+    password: string;
+}
+
 class AuthService {
-    public async login(params: { email: string, password: string }) {
+    public async login(params: ILoginDTO) {
 
         let response = await Api.post<{ token: string, user: IUser }>('/users/login', params);
         localStorage.setItem('token', JSON.stringify(response.data.token));
@@ -19,7 +31,7 @@ class AuthService {
 
     }
 
-    public async register(params: { username: string, email: string, password: string }) {
+    public async register(params: IRegisterDTO) {
         await Api.post('/users/', params);
     }
 

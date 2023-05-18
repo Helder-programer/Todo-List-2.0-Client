@@ -4,77 +4,54 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import ChecklistsList from './list';
 import ChecklistService from '../../services/checklist';
 import NewChecklistForm from './newChecklistForm';
-import EditChecklistForm from './editChecklistForm';
-import { IChecklist } from '../../services/checklist';
+import { IChecklist } from '../../interfaces/IChecklist';
 import '../../styles/Checklists.scss';
+import ErrorModal from '../messages/error/modal';
+import { IAppError } from '../../interfaces/IError';
 
 
 function Checklists() {
     const [checklists, setChecklists] = useState<IChecklist[]>([]);
-    const [newChecklistFormShow, setNewChecklistFormShow] = useState<boolean>(false);
-    const [editChecklistFormShow, setEditChecklistFormShow] = useState<boolean>(false);
     const [currentChecklist, setCurrentChecklist] = useState<IChecklist>({ checklist_id: 0, name: '', created_at: '', updated_at: '', tasks: [] });
+    const [error, setError] = useState<IAppError>({ isError: false, message: '' });
 
     useEffect(() => {
         getChecklists();
     }, []);
 
-
-
-    const handleClose = () => {
-        setNewChecklistFormShow(false);
-        setEditChecklistFormShow(false)
-    }
-
-    const selectChecklist = (id: number) => {
+    const selectChecklist = (checklistId: number) => {
         const checklist = checklists.find(checklist => {
-            return checklist.checklist_id == id;
+            return checklist.checklist_id === checklistId;
         });
 
         setCurrentChecklist(checklist!);
     }
 
     const create = async (name: string) => {
-        try {
-            await ChecklistService.create(name);
-            await getChecklists();
-        } catch (error) {
-            console.log(error);
-        }
+        await ChecklistService.create(name);
+        await getChecklists();
     }
 
     const getChecklists = async () => {
         try {
             const checklists = await ChecklistService.index<IChecklist[]>();
             setChecklists(checklists);
-        } catch (error) {
-            console.log(error);
-
+        } catch (err: any) {
+            setError({ isError: true, message: err.message });
+            console.log(err);
         }
     }
 
 
-    const update = async (id: number, name: string) => {
-        try {
-            await ChecklistService.update(id, name);
-            await getChecklists();
-        } catch (error) {
-            console.log(error);
-        }
+    const update = async (checklistId: number, name: string) => {
+        await ChecklistService.update(checklistId, name);
+        await getChecklists();
     }
 
 
-    const remove = async (id: number) => {
-        try {
-            try {
-                await ChecklistService.delete(id);
-                await getChecklists();
-            } catch (error) {
-                console.log(error);
-            }
-        } catch (error) {
-            console.log(error);
-        }
+    const remove = async (checklistId: number) => {
+        await ChecklistService.delete(checklistId);
+        await getChecklists();
     }
 
 
@@ -83,39 +60,24 @@ function Checklists() {
         <>
             <Container className='pt-5' as='section'>
                 <Row className='flex-row align-items-center'>
+                    {
+                        error.isError && <ErrorModal message={error.message} />
+                    }
                     <Col>
                         <h1>Your Checklists</h1>
                     </Col>
                     <Col md="auto">
-                        <Button
-                            className='btn-custom-gray border'
-                            variant=''
-                            onClick={() => setNewChecklistFormShow(true)}
-                        >
-                            New Checklist
-                        </Button>
+                        <NewChecklistForm 
+                        create={create} 
+                        />
                     </Col>
                 </Row>
 
                 <ChecklistsList
                     checklists={checklists}
                     remove={remove}
-                    selectChecklist={selectChecklist}
-                    setShow={setEditChecklistFormShow}
-                />
-
-                <NewChecklistForm
-                    show={newChecklistFormShow}
-                    handleClose={handleClose}
-                    create={create}
-                />
-
-
-                <EditChecklistForm
-                    show={editChecklistFormShow}
-                    handleClose={handleClose}
-                    currentChecklist={currentChecklist}
                     update={update}
+                    selectChecklist={selectChecklist}
                 />
 
             </Container>

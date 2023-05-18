@@ -6,6 +6,7 @@ import ChecklistsPage from "./pages/checklists";
 import PrivateRouter from './components/auth/PrivateRouter';
 import PublicRouter from "./components/auth/publicRouter";
 import ChecklistPage from "./pages/checklist";
+import NotFoundPage from "./pages/errors/notFound";
 
 function MainRoutes() {
 
@@ -17,8 +18,6 @@ function MainRoutes() {
                         <LoginPage />
                     </PublicRouter>
                 } />
-
-
 
                 <Route path="/register" element={
                     <PublicRouter>
@@ -32,7 +31,12 @@ function MainRoutes() {
                     </PrivateRouter>
                 } />
 
-                <Route path="/checklists/:checklistId" element={<ChecklistPage />} />
+                <Route path="/checklists/:checklistId" element={
+                    <PrivateRouter>
+                        <ChecklistPage />
+                    </PrivateRouter>
+                } />
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </Router>
     );

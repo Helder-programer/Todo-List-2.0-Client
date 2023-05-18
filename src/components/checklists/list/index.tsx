@@ -5,16 +5,17 @@ import { Card, Col, Row, Stack } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
 
-import { IChecklist } from '../../../services/checklist';
+import { IChecklist } from '../../../interfaces/IChecklist';
+import EditChecklistForm from '../editChecklistForm';
 
 interface IProps {
     checklists: IChecklist[];
     remove(id: number): Promise<void>;
     selectChecklist(id: number): void;
-    setShow: Dispatch<SetStateAction<boolean>>;
+    update(checklistId: number, name: string): Promise<void>;
 }
 
-const ChecklistsList = ({ checklists, remove, selectChecklist, setShow }: IProps) => {
+const ChecklistsList = ({ checklists, remove, selectChecklist, update }: IProps) => {
     const navigate = useNavigate();
 
     return (
@@ -22,12 +23,12 @@ const ChecklistsList = ({ checklists, remove, selectChecklist, setShow }: IProps
             <Stack className='pt-3' gap={4}>
                 {
                     checklists.map((currentChecklist, index) =>
-                        <Card className="checklist-card" key={index}>
+                        <Card className="checklist-card" key={index} onClick={() => selectChecklist(currentChecklist.checklist_id)}>
                             <Card.Header as="h6" className='fst-italic d-flex justify-content-between'>
                                 <span>Checklist</span>
 
                                 <div id="icons">
-                                    <i className='text-warning me-2' style={{ cursor: 'pointer' }} onClick={() => { selectChecklist(currentChecklist.checklist_id); setShow(true) }}><AiFillEdit /></i>
+                                    <EditChecklistForm update={update} currentChecklist={currentChecklist} />
                                     <i className='text-danger' style={{ cursor: 'pointer' }}><FaTrash onClick={() => remove(currentChecklist.checklist_id)} /></i>
                                 </div>
                             </Card.Header>
@@ -39,7 +40,6 @@ const ChecklistsList = ({ checklists, remove, selectChecklist, setShow }: IProps
                                             <span className='font-small-light fw-light mb-2'><span className='me-2'>Created at:</span>{moment(currentChecklist.created_at).format('DD/MM/YYYY')}</span>
                                             <span className='font-small-light fw-light mb-2'><span className='me-2'>Updated at:</span>{moment(currentChecklist.updated_at).format('DD/MM/YYYY')}</span>
                                             <span className='font-small-light fw-semibold'><span className='me-2'>Tasks quantity:</span>{currentChecklist.tasks.length}</span>
-
                                         </Col>
                                     </Row>
                                 </Card.Title>

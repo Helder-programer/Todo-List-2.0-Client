@@ -36,7 +36,7 @@ function LoginForm() {
 
 
     const btnLoginStyle = () => {
-        if (inputs.email != '' && inputs.password != '') {
+        if (inputs.email !== '' && inputs.password !== '') {
 
             btnLoginRef.current!.style.backgroundColor = 'rgb(67, 199, 243)';
             btnLoginRef.current!.style.opacity = '1';
@@ -51,7 +51,7 @@ function LoginForm() {
 
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputs({ ...inputs, [event.target.id]: event.target.value });
+        setInputs({ ...inputs, [event.target.name]: event.target.value });
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -78,15 +78,15 @@ function LoginForm() {
                 <p className='mb-5 text-center fs-5'>Login in application</p>
                 <form onSubmit={handleSubmit}>
                     <div className="text">
-                        <input ref={emailInputRef} type="text" placeholder="E-MAIL" value={inputs.email} id="email" onKeyUp={btnLoginStyle} onChange={handleChange} autoComplete="off" autoFocus />
+                        <input ref={emailInputRef} type="text" placeholder="E-MAIL" value={inputs.email} id="email" name="email" onKeyUp={btnLoginStyle} onChange={handleChange} autoComplete="off" autoFocus />
                         <label htmlFor="">E-MAIL</label>
                     </div>
                     <div className="text">
-                        <input ref={passwordInputRef} type="password" placeholder="PASSWORD" value={inputs.password} id="password" onKeyUp={btnLoginStyle} onChange={handleChange} />
+                        <input ref={passwordInputRef} type="password" placeholder="PASSWORD" value={inputs.password} id="password" name="password" onKeyUp={btnLoginStyle} onChange={handleChange} />
                         <label htmlFor="">PASSWORD</label>
                     </div>
                     {
-                        error && <p className='text-danger m-0' style={{ fontSize: '10pt' }}>Incorret e-mail or password</p>
+                        error && <p className='text-danger m-0' style={{ fontSize: '10pt' }}>Incorrect e-mail or password</p>
                     }
                     <button ref={btnLoginRef} className="btn-login" type="submit" disabled><AiOutlineArrowRight /></button>
                     <div ref={loaderRef} className="loader"></div>

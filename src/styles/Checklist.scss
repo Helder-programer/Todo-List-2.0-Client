@@ -19,6 +19,23 @@
     font-size: 14pt;
 }
 
+.task {
+    top: 0;
+    position: relative;
+    animation: taskAnimation 0.5s ease-in-out forwards;
+}
+
+@keyframes taskAnimation {
+    from {
+        top: 50px;
+        opacity: 0;
+    }
+    to {
+        top: 0px;
+        opacity: 1;
+    }
+}
+
 
 @keyframes taskCheckedAnimation {
 

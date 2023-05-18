@@ -55,7 +55,7 @@ function RegisterForm() {
     }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputs({ ...inputs, [event.target.id]: event.target.value });
+        setInputs({ ...inputs, [event.target.name]: event.target.value });
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -82,15 +82,15 @@ function RegisterForm() {
                 <p className='mb-5 text-center fs-5'>Create your account</p>
                 <form onSubmit={handleSubmit}>
                     <div className="text">
-                        <input ref={usernameInputRef} type="text" placeholder="USERNAME" value={inputs.username} onKeyUp={btnRegisterStyle} id="username" onChange={handleChange} autoComplete="off" autoFocus />
+                        <input ref={usernameInputRef} type="text" placeholder="USERNAME" value={inputs.username} onKeyUp={btnRegisterStyle} id="username" name="username" onChange={handleChange} autoComplete="off" autoFocus />
                         <label htmlFor="">USERNAME</label>
                     </div>
                     <div className="text">
-                        <input ref={emailInputRef} type="text" placeholder="E-MAIL" value={inputs.email} onKeyUp={btnRegisterStyle} id="email" onChange={handleChange} autoComplete="off" />
+                        <input ref={emailInputRef} type="text" placeholder="E-MAIL" value={inputs.email} onKeyUp={btnRegisterStyle} id="email" onChange={handleChange} name="email" autoComplete="off" />
                         <label htmlFor="">E-MAIL</label>
                     </div>
                     <div className="text">
-                        <input ref={passwordInputRef} type="password" placeholder="PASSWORD" value={inputs.password} onKeyUp={btnRegisterStyle} id="password" onChange={handleChange} />
+                        <input ref={passwordInputRef} type="password" placeholder="PASSWORD" value={inputs.password} onKeyUp={btnRegisterStyle} id="password" name="password" onChange={handleChange} />
                         <label htmlFor="">PASSWORD</label>
                     </div>
                     {

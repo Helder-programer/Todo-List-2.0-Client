@@ -1,18 +1,21 @@
 import Api from "./api";
+import { ITask } from "../interfaces/ITask";
 
-export interface ITask {
-    task_id: number;
+export interface ISeachTaskDTO {
     description: string;
-    done: number;
     priority: number;
-    limit_date: string;
-    created_at: string;
-    updated_at: string;
+    done: number;
+}
+
+export interface ICreateTaskDTO {
+    description: string;
+    priority: number;
+    limitDate: string;
 }
 
 
 class TaskService {
-    public async create(checklistId: number, params: { description: string, priority: number, limitDate: string }): Promise<void> {
+    public async create(checklistId: number, params: ICreateTaskDTO) {
         const token = JSON.parse(localStorage.getItem('token') ?? '');
 
         await Api.post(`/checklists/${checklistId}/tasks`, params, {
@@ -29,9 +32,29 @@ class TaskService {
     }
 
 
+    public async searchTask(checklistId: number, params: ISeachTaskDTO) {
+        const token = JSON.parse(localStorage.getItem('token') ?? '');
+        let requestUrl = `/checklists/${checklistId}/tasks/?description=${params.description}`;
 
-    public async delete(id: number): Promise<void> {
+        if (params.done != -1) requestUrl += `&done=${params.done}`;
+        if (params.priority != -1) requestUrl += `&priority=${params.priority}`;
 
+
+        const response = await Api.get<ITask[]>(requestUrl, {
+            headers: {
+                'access-token': token,
+            }
+        });
+
+        return response.data;
+    }
+
+
+    public async deleteTask(checklistId: number, taskId: number) {
+        const token = JSON.parse(localStorage.getItem('token') ?? '');
+        await Api.delete(`/checklists/${checklistId}/tasks/${taskId}`, {
+            headers: { 'access-token': token }
+        });
     }
 }
 

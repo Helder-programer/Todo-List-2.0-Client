@@ -3,16 +3,16 @@ import { Stack, Row, Col } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import moment from 'moment';
 
-import { ITask } from '../../../../services/task';
+import { ITask } from '../../../../interfaces/ITask';
 import { AiOutlineCheck } from 'react-icons/ai';
 
 interface IProps {
     tasks: ITask[];
     setTaskAsDone(taskId: number): Promise<void>;
+    deleteTask(taskId: number): Promise<void>;
 }
 
-const TasksList = ({ tasks, setTaskAsDone }: IProps) => {
-
+const TasksList = ({ tasks, setTaskAsDone, deleteTask }: IProps) => {
 
     return (
         <Stack className="pt-4">
@@ -40,11 +40,11 @@ const TasksList = ({ tasks, setTaskAsDone }: IProps) => {
 
                             <div className="task-informations">
                                 <span className="font-small-light me-3">Criação: {moment(currentTask.created_at).format('DD/MM/YYYY')}</span>
-                                <span className="font-small-light">Limite: {currentTask.limit_date ? moment(currentTask.limit_date).format('DD/MM/YYYY'): 'Nenhum'}</span>
+                                <span className="font-small-light">Limite: {currentTask.limit_date ? moment(currentTask.limit_date).format('DD/MM/YYYY') : 'Nenhum'}</span>
                             </div>
                         </Col>
                         <Col md="auto">
-                            <i className='text-danger' style={{ cursor: 'pointer' }}><FaTrash /></i>
+                            <i className='text-danger' style={{ cursor: 'pointer' }} onClick={() => deleteTask(currentTask.task_id)}><FaTrash /></i>
                         </Col>
                     </Row>
                     <hr className="mt-1" />

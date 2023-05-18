@@ -1,14 +1,5 @@
 import Api from './api';
-import { ITask } from './task';
-
-export interface IChecklist {
-    checklist_id: number;
-    name: string;
-    created_at: string;
-    updated_at: string;
-    tasks: ITask[];
-}
-
+import { IChecklist } from '../interfaces/IChecklist';
 
 class ChecklistService {
     public async create(name: string): Promise<void> {
@@ -24,10 +15,10 @@ class ChecklistService {
         const response = await Api.get<T>('/checklists', {
             headers: { 'access-token': token }
         });
-        
+
         return response.data;
     }
-    
+
     public async update(id: number, name: string) {
         const token = JSON.parse(localStorage.getItem('token') ?? '');
         await Api.put(`/checklists/${id}`, { name }, {
