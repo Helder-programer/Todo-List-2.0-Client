@@ -6,7 +6,7 @@ interface IProps {
 
 const ErrorText = ({ message }: IProps) => {
     return (
-        <p className="text-danger" style={{ fontSize: '10pt' }}>Error: {message}</p>
+        <p className="error-font">Error: {message}</p>
     );
 }
 

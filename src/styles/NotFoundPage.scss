@@ -1,0 +1,9 @@
+@import './custom.scss';
+
+main {
+    height: calc(100vh - 63px);
+}
+
+#error-message {
+    letter-spacing: 1.75px;    
+}

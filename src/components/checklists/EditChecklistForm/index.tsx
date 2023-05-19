@@ -14,12 +14,12 @@ interface IChecklist {
 
 
 interface IProps {
-    update(checklistId: number, name: string): Promise<void>;
+    updateChecklist(checklistId: number, name: string): Promise<void>;
     currentChecklist: IChecklist;
 }
 
 
-const EditChecklistForm = ({ update, currentChecklist }: IProps) => {
+const EditChecklistForm = ({ updateChecklist, currentChecklist }: IProps) => {
     const [checklistName, setChecklistName] = useState<string>(currentChecklist.name);
     const [error, setError] = useState<IAppError>({ isError: false, message: '' });
     const [show, setShow] = useState<boolean>(false);
@@ -34,7 +34,7 @@ const EditChecklistForm = ({ update, currentChecklist }: IProps) => {
         event.preventDefault();
 
         try {
-            await update(currentChecklist.checklist_id, checklistName);
+            await updateChecklist(currentChecklist.checklist_id, checklistName);
             handleClose();
             resetInputs();
         } catch (err: any) {

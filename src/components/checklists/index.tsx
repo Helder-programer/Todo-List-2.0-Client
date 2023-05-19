@@ -12,29 +12,20 @@ import { IAppError } from '../../interfaces/IError';
 
 function Checklists() {
     const [checklists, setChecklists] = useState<IChecklist[]>([]);
-    const [currentChecklist, setCurrentChecklist] = useState<IChecklist>({ checklist_id: 0, name: '', created_at: '', updated_at: '', tasks: [] });
     const [error, setError] = useState<IAppError>({ isError: false, message: '' });
 
     useEffect(() => {
         getChecklists();
     }, []);
 
-    const selectChecklist = (checklistId: number) => {
-        const checklist = checklists.find(checklist => {
-            return checklist.checklist_id === checklistId;
-        });
-
-        setCurrentChecklist(checklist!);
-    }
-
-    const create = async (name: string) => {
+    const createChecklist = async (name: string) => {
         await ChecklistService.create(name);
         await getChecklists();
     }
 
     const getChecklists = async () => {
         try {
-            const checklists = await ChecklistService.index<IChecklist[]>();
+            const checklists = await ChecklistService.index();
             setChecklists(checklists);
         } catch (err: any) {
             setError({ isError: true, message: err.message });
@@ -43,13 +34,13 @@ function Checklists() {
     }
 
 
-    const update = async (checklistId: number, name: string) => {
+    const updateChecklist = async (checklistId: number, name: string) => {
         await ChecklistService.update(checklistId, name);
         await getChecklists();
     }
 
 
-    const remove = async (checklistId: number) => {
+    const deleteChecklist = async (checklistId: number) => {
         await ChecklistService.delete(checklistId);
         await getChecklists();
     }
@@ -68,16 +59,15 @@ function Checklists() {
                     </Col>
                     <Col md="auto">
                         <NewChecklistForm 
-                        create={create} 
+                        createTask={createChecklist} 
                         />
                     </Col>
                 </Row>
 
                 <ChecklistsList
                     checklists={checklists}
-                    remove={remove}
-                    update={update}
-                    selectChecklist={selectChecklist}
+                    deleteChecklist={deleteChecklist}
+                    updateChecklist={updateChecklist}
                 />
 
             </Container>

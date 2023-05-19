@@ -9,10 +9,10 @@ class ChecklistService {
         });
     }
 
-    public async index<T>(): Promise<T> {
+    public async index(): Promise<IChecklist[]> {
         const token = JSON.parse(localStorage.getItem('token') ?? '');
 
-        const response = await Api.get<T>('/checklists', {
+        const response = await Api.get<IChecklist[]>('/checklists', {
             headers: { 'access-token': token }
         });
 

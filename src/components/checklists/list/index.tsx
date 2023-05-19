@@ -1,35 +1,50 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { Card, Col, Row, Stack } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
-import { AiFillEdit } from 'react-icons/ai';
 
 import { IChecklist } from '../../../interfaces/IChecklist';
 import EditChecklistForm from '../editChecklistForm';
+import { IAppError } from '../../../interfaces/IError';
+import ErrorModal from '../../messages/error/modal';
 
 interface IProps {
     checklists: IChecklist[];
-    remove(id: number): Promise<void>;
-    selectChecklist(id: number): void;
-    update(checklistId: number, name: string): Promise<void>;
+    deleteChecklist(checklistId: number): Promise<void>;
+    updateChecklist(checklistId: number, name: string): Promise<void>;
 }
 
-const ChecklistsList = ({ checklists, remove, selectChecklist, update }: IProps) => {
+const ChecklistsList = ({ checklists, deleteChecklist, updateChecklist }: IProps) => {
     const navigate = useNavigate();
+    const [error, setError] = useState<IAppError>({ isError: false, message: '' });
+
+    const handleDeleteChecklist = async (checklistId: number) => {
+        
+        try {
+            await deleteChecklist(checklistId);
+
+        } catch (err: any) {
+            setError({ isError: true, message: err.message });
+            console.log(err);
+        }
+    }
 
     return (
         <>
             <Stack className='pt-3' gap={4}>
                 {
+                    error.isError && <ErrorModal message={error.message} />
+                }
+                {
                     checklists.map((currentChecklist, index) =>
-                        <Card className="checklist-card" key={index} onClick={() => selectChecklist(currentChecklist.checklist_id)}>
+                        <Card className="checklist-card" key={index}>
                             <Card.Header as="h6" className='fst-italic d-flex justify-content-between'>
                                 <span>Checklist</span>
 
                                 <div id="icons">
-                                    <EditChecklistForm update={update} currentChecklist={currentChecklist} />
-                                    <i className='text-danger' style={{ cursor: 'pointer' }}><FaTrash onClick={() => remove(currentChecklist.checklist_id)} /></i>
+                                    <EditChecklistForm updateChecklist={updateChecklist} currentChecklist={currentChecklist} />
+                                    <i className='text-danger' style={{ cursor: 'pointer' }}><FaTrash onClick={() => handleDeleteChecklist(currentChecklist.checklist_id)} /></i>
                                 </div>
                             </Card.Header>
                             <Card.Body onClick={() => navigate(`/checklists/${currentChecklist.checklist_id}`)}>

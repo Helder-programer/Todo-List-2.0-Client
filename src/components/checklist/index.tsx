@@ -20,7 +20,6 @@ interface IProps {
 
 function Checklist({ checklistId }: IProps) {
     const [currentChecklist, setCurrentChecklist] = useState<IChecklist>({ checklist_id: 0, name: '', created_at: '', updated_at: '', tasks: [] });
-    const [showNewTaskForm, setShowNewTaskForm] = useState<boolean>(false);
     const [tasks, setTasks] = useState<ITask[]>(currentChecklist.tasks);
     const [currentFilters, setCurrentFilters] = useState<ISeachTaskDTO>({ description: '', done: -1, priority: -1 });
     const [error, setError] = useState<IAppError>({ isError: false, message: '' });
@@ -41,25 +40,15 @@ function Checklist({ checklistId }: IProps) {
     }, []);
 
 
-    const handleClose = () => {
-        setShowNewTaskForm(false);
-    }
-
-
-
-    const create = async (params: ICreateTaskDTO) => {
+    const createTask = async (params: ICreateTaskDTO) => {
         await TaskService.create(currentChecklist.checklist_id, params);
         await getChecklist();
     }
 
 
     const setTaskAsDone = async (taskId: number) => {
-        try {
-            await TaskService.setTaskAsDone(currentChecklist.checklist_id, taskId);
-            await searchTasks(currentFilters);
-        } catch (error) {
-            console.log(error);
-        }
+        await TaskService.setTaskAsDone(currentChecklist.checklist_id, taskId);
+        await searchTasks(currentFilters);
     }
 
     const searchTasks = async (params: ISeachTaskDTO) => {
@@ -73,12 +62,8 @@ function Checklist({ checklistId }: IProps) {
     }
 
     const deleteTask = async (taskId: number) => {
-        try {
-            await TaskService.deleteTask(currentChecklist.checklist_id, taskId);
-            await searchTasks(currentFilters);
-        } catch (error) {
-            console.log(error);
-        }
+        await TaskService.deleteTask(currentChecklist.checklist_id, taskId);
+        await searchTasks(currentFilters);
     }
 
 
@@ -93,13 +78,9 @@ function Checklist({ checklistId }: IProps) {
                         <h3>Checklist '{currentChecklist.name}'</h3>
                     </Col>
                     <Col md="auto">
-                        <Button
-                            className='btn-custom-gray border'
-                            variant=''
-                            onClick={() => setShowNewTaskForm(true)}
-                        >
-                            New Task
-                        </Button>
+                        <NewTaskForm
+                            create={createTask}
+                        />
                     </Col>
                 </Row>
                 <SearchTask
@@ -113,13 +94,6 @@ function Checklist({ checklistId }: IProps) {
                     tasks={tasks}
                     setTaskAsDone={setTaskAsDone}
                     deleteTask={deleteTask}
-                />
-
-
-                <NewTaskForm
-                    show={showNewTaskForm}
-                    handleClose={handleClose}
-                    create={create}
                 />
             </Container>
         </>

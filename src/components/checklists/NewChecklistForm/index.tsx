@@ -4,11 +4,11 @@ import ErrorText from '../../messages/error/errorText';
 import { IAppError } from '../../../interfaces/IError';
 
 interface IProps {
-    create(name: string): Promise<void>;
+    createTask(name: string): Promise<void>;
 }
 
 
-const NewChecklistForm = ({ create }: IProps) => {
+const NewChecklistForm = ({ createTask }: IProps) => {
     const [checklistName, setChecklistName] = useState<string>('');
     const [error, setError] = useState<IAppError>({ isError: false, message: '' });
     const [show, setShow] = useState<boolean>(false);
@@ -23,7 +23,7 @@ const NewChecklistForm = ({ create }: IProps) => {
         event.preventDefault();
 
         try {
-            await create(checklistName);
+            await createTask(checklistName);
             resetForm();
             handleClose();
         } catch (err: any) {
