@@ -36,8 +36,8 @@ class TaskService {
         const token = JSON.parse(localStorage.getItem('token') ?? '');
         let requestUrl = `/checklists/${checklistId}/tasks/?description=${params.description}`;
 
-        if (params.done != -1) requestUrl += `&done=${params.done}`;
-        if (params.priority != -1) requestUrl += `&priority=${params.priority}`;
+        if (params.done !== -1) requestUrl += `&done=${params.done}`;
+        if (params.priority !== -1) requestUrl += `&priority=${params.priority}`;
 
 
         const response = await Api.get<ITask[]>(requestUrl, {

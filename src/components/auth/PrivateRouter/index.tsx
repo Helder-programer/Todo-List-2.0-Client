@@ -1,14 +1,15 @@
 import React, { PropsWithChildren } from 'react';
 import { Navigate } from 'react-router-dom';
+import { IUser } from '../../../interfaces/IUser';
 
 interface IProps {
     children: React.JSX.Element;
 }
 
 const PrivateRouter = ({ children }: IProps) => {
-    const user = localStorage.getItem('user');
+    const user: IUser = JSON.parse(localStorage.getItem('user')!);
 
-    if (!user) return <Navigate to='/login'/> 
+    if (!user) return <Navigate to='/login' />
 
     return children;
 }

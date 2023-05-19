@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import HomePage from "./pages/home";
 import LoginPage from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import ChecklistsPage from "./pages/checklists";
@@ -13,6 +15,7 @@ function MainRoutes() {
     return (
         <Router>
             <Routes>
+                <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={
                     <PublicRouter>
                         <LoginPage />

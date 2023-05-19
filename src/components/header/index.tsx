@@ -4,23 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
 import { AiFillBell } from 'react-icons/ai';
 import AuthService from '../../services/auth';
-import ChecklistService from '../../services/checklist';
-import { IChecklist } from '../../interfaces/IChecklist';
+import { IUser } from '../../interfaces/IUser';
 
 import '../../styles/Header.scss';
 
-interface Iuser {
-    user_id: number;
-    username: string;
-    email: string;
-    password: string;
-    created_at: string;
-    updated_at: string;
-}
-
 
 function Header() {
-    const [user, setUser] = useState<Iuser>(JSON.parse(localStorage.getItem('user')!));
+    const [user, setUser] = useState<IUser>(JSON.parse(localStorage.getItem('user')!));
     const navigate = useNavigate();
 
     const logout = () => {
@@ -33,7 +23,12 @@ function Header() {
             <header className='v-100'>
                 <Navbar className='tdl-navbar p-2'>
                     <Container>
-                        <Navbar.Brand className='text-light fs-4 fst-italic fw-bold' onClick={() => navigate('/checklists')} >Todo List 2.0</Navbar.Brand>
+                        <Navbar.Brand
+                            className='text-light fs-4 fst-italic fw-bold'
+                            onClick={() => navigate('/')}
+                        >
+                            Todo List
+                        </Navbar.Brand>
                         <Navbar.Toggle />
                         {
                             user &&
@@ -51,6 +46,7 @@ function Header() {
 
                                         <Dropdown.Menu>
                                             <Dropdown.Item onClick={() => logout()}>Logout</Dropdown.Item>
+                                            <Dropdown.Item className="text-danger">Notifications</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </Navbar.Text>

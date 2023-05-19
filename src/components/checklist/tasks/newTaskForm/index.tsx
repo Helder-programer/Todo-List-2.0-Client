@@ -73,6 +73,7 @@ const NewTaskForm = ({ create }: IProps) => {
                                 value={inputs.description}
                                 onChange={handleChange}
                                 required
+                                autoFocus
                             />
                         </Form.Group>
 

@@ -1,14 +1,5 @@
 import Api from "./api";
-
-interface IUser {
-    user_id: number;
-    username: string;
-    email: string;
-    password: string;
-    created_at: string;
-    updated_at: string;
-}
-
+import { IUser } from "../interfaces/IUser";
 
 export interface ILoginDTO {
     email: string;
