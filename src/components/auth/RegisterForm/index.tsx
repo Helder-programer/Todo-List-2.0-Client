@@ -78,7 +78,7 @@ function RegisterForm() {
     return (
         <>
             <div className="card-login">
-                <h2 className='fw-semibold mb-3 text-center'>Todo List</h2>
+                <h2 className='fw-semibold mb-3 text-center'>To do List</h2>
                 <p className='mb-5 text-center fs-5'>Create your account</p>
                 <form onSubmit={handleSubmit}>
                     <div className="text">
@@ -101,6 +101,7 @@ function RegisterForm() {
                 </form>
                 <div className="informations">
                     <Link to='/login'>LOGIN IN APPLICATION</Link>
+                    <Link to='/register' className="small-text">HOME</Link>
                 </div>
             </div>
         </>

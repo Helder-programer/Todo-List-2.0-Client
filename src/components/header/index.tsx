@@ -27,7 +27,7 @@ function Header() {
                             className='text-light fs-4 fst-italic fw-bold'
                             onClick={() => navigate('/')}
                         >
-                            Todo List
+                            To do List
                         </Navbar.Brand>
                         <Navbar.Toggle />
                         {

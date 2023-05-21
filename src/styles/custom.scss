@@ -26,7 +26,6 @@ $theme-colors: (
 
 .btn-custom-gray:hover, .btn-custom-gray:focus {
     background-color: $tdl-gray;
-    box-shadow: 0px 0px 5px rgb(95, 95, 95);
 }
 
 .font-small-light {
@@ -38,4 +37,9 @@ $theme-colors: (
 .error-font {
     color: tdl-red;
     font-size: 10pt;
+}
+
+
+.small-text {
+    font-size: 9pt;
 }

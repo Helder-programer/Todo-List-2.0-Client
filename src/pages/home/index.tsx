@@ -17,8 +17,8 @@ function HomePage() {
             <Header />
             <Container as="main" className="d-flex justify-content-center align-items-center">
                 <section className="home d-flex flex-column">
-                    <h1 id="home-title">Todo List</h1>
-                    <p id="home-text">Organize your day with Todo List</p>
+                    <h1 id="home-title">To do List</h1>
+                    <p id="home-text">Organize your day with To do List</p>
 
                     <Row className="buttons justify-content-between">
 
@@ -31,11 +31,11 @@ function HomePage() {
                                 :
                                 <>
                                     <Col md="auto">
-                                        <Button variant="outline-primary">Login</Button>
+                                        <Button variant="outline-primary" onClick={() => navigate('/login')}>Login</Button>
                                     </Col>
 
                                     <Col md="auto">
-                                        <Button variant="outline-primary">Register</Button>
+                                        <Button variant="primary" className="text-light" onClick={() => navigate('/register')}>Sign in</Button>
                                     </Col>
                                 </>
 

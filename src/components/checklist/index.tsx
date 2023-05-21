@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 import { IChecklist } from '../../interfaces/IChecklist';
+import { ITask } from '../../interfaces/ITask';
+import { IAppError } from '../../interfaces/IError';
 import ChecklistService from '../../services/checklist';
 import TasksList from './tasks/list';
 import NewTaskForm from './tasks/newTaskForm';
 import TaskService, { ISeachTaskDTO, ICreateTaskDTO } from '../../services/task';
-import { ITask } from '../../interfaces/ITask';
-import '../../styles/Checklist.scss';
 import SearchTask from './tasks/search';
 import ErrorModal from '../messages/error/modal';
-import { IAppError } from '../../interfaces/IError';
+import '../../styles/Checklist.scss';
 
 
 interface IProps {
@@ -23,6 +24,7 @@ function Checklist({ checklistId }: IProps) {
     const [tasks, setTasks] = useState<ITask[]>(currentChecklist.tasks);
     const [currentFilters, setCurrentFilters] = useState<ISeachTaskDTO>({ description: '', done: -1, priority: -1 });
     const [error, setError] = useState<IAppError>({ isError: false, message: '' });
+    const navigate = useNavigate();
 
     const getChecklist = async () => {
         try {
@@ -81,6 +83,9 @@ function Checklist({ checklistId }: IProps) {
                         <NewTaskForm
                             create={createTask}
                         />
+                    </Col>
+                    <Col md="auto">
+                        <Button variant="outline-primary" onClick={() => navigate('/checklists')}>Your Checklists</Button>
                     </Col>
                 </Row>
                 <SearchTask
