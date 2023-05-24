@@ -14,7 +14,7 @@ interface IProps {
     deleteTask(taskId: number): Promise<void>;
 }
 
-const TasksList = ({ tasks, setTaskAsDone, deleteTask }: IProps) => {
+const List = ({ tasks, setTaskAsDone, deleteTask }: IProps) => {
     const [error, setError] = useState<IAppError>({ isError: false, message: '' });
 
     const handleSetTaskAsDone = async (taskId: number) => {
@@ -81,4 +81,4 @@ const TasksList = ({ tasks, setTaskAsDone, deleteTask }: IProps) => {
     );
 }
 
-export default TasksList;
+export default List;

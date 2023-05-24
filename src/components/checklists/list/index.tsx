@@ -1,12 +1,12 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
-import { Card, Col, Row, Stack } from 'react-bootstrap';
+import { Card, Col, Row, Stack, Badge } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 
 import { IChecklist } from '../../../interfaces/IChecklist';
-import EditChecklistForm from '../editChecklistForm';
 import { IAppError } from '../../../interfaces/IError';
+import EditChecklistForm from '../editChecklistForm';
 import ErrorModal from '../../messages/error/modal';
 
 interface IProps {
@@ -15,12 +15,12 @@ interface IProps {
     updateChecklist(checklistId: number, name: string): Promise<void>;
 }
 
-const ChecklistsList = ({ checklists, deleteChecklist, updateChecklist }: IProps) => {
+const List = ({ checklists, deleteChecklist, updateChecklist }: IProps) => {
     const navigate = useNavigate();
     const [error, setError] = useState<IAppError>({ isError: false, message: '' });
 
     const handleDeleteChecklist = async (checklistId: number) => {
-        
+
         try {
             await deleteChecklist(checklistId);
 
@@ -32,7 +32,7 @@ const ChecklistsList = ({ checklists, deleteChecklist, updateChecklist }: IProps
 
     return (
         <>
-            <Stack className='pt-3' gap={4}>
+            <Stack className='pt-3' gap={4} as="section">
                 {
                     error.isError && <ErrorModal message={error.message} />
                 }
@@ -52,9 +52,9 @@ const ChecklistsList = ({ checklists, deleteChecklist, updateChecklist }: IProps
                                     <Row>
                                         <Col className='d-flex flex-column'>
                                             <span className='fs-4 mb-4'>{currentChecklist.name}</span>
-                                            <span className='font-small-light fw-light mb-2'><span className='me-2'>Created at:</span>{moment(currentChecklist.created_at).format('DD/MM/YYYY')}</span>
+                                            <span className='font-small-light fw-light mb-1'><span className='me-2'>Created at:</span>{moment(currentChecklist.created_at).format('DD/MM/YYYY')}</span>
                                             <span className='font-small-light fw-light mb-2'><span className='me-2'>Updated at:</span>{moment(currentChecklist.updated_at).format('DD/MM/YYYY')}</span>
-                                            <span className='font-small-light fw-semibold'><span className='me-2'>Tasks quantity:</span>{currentChecklist.tasks.length}</span>
+                                            <Badge bg="primary" className='font-small-light checklist-task-quantity fw-semibold'><span className='me-2'>Tasks:</span>{currentChecklist.tasks.length}</Badge>
                                         </Col>
                                     </Row>
                                 </Card.Title>
@@ -69,4 +69,4 @@ const ChecklistsList = ({ checklists, deleteChecklist, updateChecklist }: IProps
     );
 }
 
-export default ChecklistsList;
+export default List;

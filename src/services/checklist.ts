@@ -43,4 +43,4 @@ class ChecklistService {
 }
 
 
-export default new ChecklistService;
+export default new ChecklistService();

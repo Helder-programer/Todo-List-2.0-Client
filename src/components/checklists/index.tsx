@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 
-import ChecklistsList from './list';
+import List from './list';
+import { IChecklist } from '../../interfaces/IChecklist';
+import { IAppError } from '../../interfaces/IError';
 import ChecklistService from '../../services/checklist';
 import NewChecklistForm from './newChecklistForm';
-import { IChecklist } from '../../interfaces/IChecklist';
-import '../../styles/Checklists.scss';
 import ErrorModal from '../messages/error/modal';
-import { IAppError } from '../../interfaces/IError';
+import '../../styles/Checklists.scss';
 
 
 function Checklists() {
@@ -49,7 +49,7 @@ function Checklists() {
 
     return (
         <>
-            <Container className='pt-5' as='section'>
+            <Container className='pt-5' as='main'>
                 <Row className='flex-row align-items-center'>
                     {
                         error.isError && <ErrorModal message={error.message} />
@@ -64,7 +64,7 @@ function Checklists() {
                     </Col>
                 </Row>
 
-                <ChecklistsList
+                <List
                     checklists={checklists}
                     deleteChecklist={deleteChecklist}
                     updateChecklist={updateChecklist}

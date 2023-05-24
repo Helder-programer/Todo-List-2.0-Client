@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/home";
@@ -9,38 +9,46 @@ import PrivateRouter from './components/auth/PrivateRouter';
 import PublicRouter from "./components/auth/publicRouter";
 import ChecklistPage from "./pages/checklist";
 import NotFoundPage from "./pages/errors/notFound";
+import TasksWithShortDeadlinePage from "./pages/tasksWithShortDeadLine";
 
 function MainRoutes() {
 
     return (
         <Router>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={
-                    <PublicRouter>
-                        <LoginPage />
-                    </PublicRouter>
-                } />
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/login" element={
+                        <PublicRouter>
+                            <LoginPage />
+                        </PublicRouter>
+                    } />
 
-                <Route path="/register" element={
-                    <PublicRouter>
-                        <Register />
-                    </PublicRouter>
-                } />
+                    <Route path="/register" element={
+                        <PublicRouter>
+                            <Register />
+                        </PublicRouter>
+                    } />
 
-                <Route path="/checklists" element={
-                    <PrivateRouter>
-                        <ChecklistsPage />
-                    </PrivateRouter>
-                } />
+                    <Route path="/checklists" element={
+                        <PrivateRouter>
+                            <ChecklistsPage />
+                        </PrivateRouter>
+                    } />
 
-                <Route path="/checklists/:checklistId" element={
-                    <PrivateRouter>
-                        <ChecklistPage />
-                    </PrivateRouter>
-                } />
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+                    <Route path="/checklists/:checklistId" element={
+                        <PrivateRouter>
+                            <ChecklistPage />
+                        </PrivateRouter>
+                    } />
+
+                    <Route path="/tasksWithShortDeadline" element={
+                        <PrivateRouter>
+                            <TasksWithShortDeadlinePage />
+                        </PrivateRouter>
+                    } />
+
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
         </Router>
     );
 }

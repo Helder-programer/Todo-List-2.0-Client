@@ -6,10 +6,10 @@ import { IChecklist } from '../../interfaces/IChecklist';
 import { ITask } from '../../interfaces/ITask';
 import { IAppError } from '../../interfaces/IError';
 import ChecklistService from '../../services/checklist';
-import TasksList from './tasks/list';
+import List from './tasks/list';
 import NewTaskForm from './tasks/newTaskForm';
 import TaskService, { ISeachTaskDTO, ICreateTaskDTO } from '../../services/task';
-import SearchTask from './tasks/search';
+import Search from './tasks/search';
 import ErrorModal from '../messages/error/modal';
 import '../../styles/Checklist.scss';
 
@@ -71,7 +71,7 @@ function Checklist({ checklistId }: IProps) {
 
     return (
         <>
-            <Container className="pt-5" as='section'>
+            <Container className="pt-5" as='main'>
                 <Row className='flex-row align-items-center'>
                     <Col>
                         {
@@ -88,14 +88,14 @@ function Checklist({ checklistId }: IProps) {
                         <Button variant="outline-primary" onClick={() => navigate('/checklists')}>Your Checklists</Button>
                     </Col>
                 </Row>
-                <SearchTask
+                <Search
                     currentFilters={currentFilters}
                     setCurrentFilters={setCurrentFilters}
                     searchTasks={searchTasks}
                 />
 
 
-                <TasksList
+                <List
                     tasks={tasks}
                     setTaskAsDone={setTaskAsDone}
                     deleteTask={deleteTask}

@@ -8,8 +8,7 @@ $tdl-green: #1daf6b;
 
 
 $theme-colors: (
-    "primary": $tdl-blue,
-    "secondary": $tdl-medium-gray,
+    "primary": $tdl-blue,   
     "danger": $tdl-red
 );
 
@@ -30,7 +29,7 @@ $theme-colors: (
 
 .font-small-light {
     font-weight: 300;
-    font-size: 11pt;
+    font-size: 9pt;
 }
 
 
@@ -42,4 +41,49 @@ $theme-colors: (
 
 .small-text {
     font-size: 9pt;
+}
+
+
+//TASKS ANIMATIONS
+@keyframes taskAnimation {
+    from {
+        top: 50px;
+        opacity: 0;
+    }
+
+    to {
+        top: 0px;
+        opacity: 1;
+    }
+}
+
+
+@keyframes taskCheckedAnimation {
+
+    0% {
+        box-shadow: 0px 0px 0px green;
+        opacity: 0;
+    }
+
+
+    50% {
+        box-shadow: 0px 0px 25px green;
+        opacity: 1;
+    }
+
+    100% {
+        box-shadow: 0px 0px 0px green;
+    }
+}   
+
+//CHECKLISTS ANIMATIONS
+@keyframes checklistAnimation {
+    from {
+        top: 50px;
+        opacity: 0;
+    }
+    to {
+        top: 0px;
+        opacity: 1;
+    }
 }

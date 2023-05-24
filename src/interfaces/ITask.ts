@@ -1,3 +1,5 @@
+import { IChecklist } from "./IChecklist";
+
 export interface ITask {
     task_id: number;
     description: string;
@@ -6,4 +8,6 @@ export interface ITask {
     limit_date: string;
     created_at: string;
     updated_at: string;
+    checklist_id: number;
+    checklist?: IChecklist;
 }

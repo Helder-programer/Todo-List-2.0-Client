@@ -8,7 +8,7 @@ interface IProps {
     currentFilters: ISeachTaskDTO;
 }
 
-const SearchTask = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
+const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
@@ -18,7 +18,7 @@ const SearchTask = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) 
 
     return (
         <>
-            <Row className="pt-1">
+            <Row className="pt-1" as="section">
                 <Form onSubmit={handleSubmit}>
                     <fieldset>
                         <legend>Filters</legend>
@@ -102,4 +102,4 @@ const SearchTask = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) 
     );
 }
 
-export default SearchTask;
+export default Search;
