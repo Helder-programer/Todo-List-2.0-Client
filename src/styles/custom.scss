@@ -39,9 +39,14 @@ $theme-colors: (
     font-size: 10pt;
 }
 
-
 .small-text {
     font-size: 9pt;
+}
+
+
+.btn-custom-transparent {
+    background-color: transparent;
+    border: none;
 }
 
 
@@ -94,5 +99,41 @@ $theme-colors: (
 @keyframes fadeIn {
     from {
         opacity: 0;
+    }
+}
+
+
+//HEADER ANIMATIONS
+@keyframes animateLateTasksBell {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(45deg);
+    }
+
+    50% {
+        transform: rotate(-45deg);
+    }
+
+    75% {
+        transform: rotate(45deg);
+    }
+
+    80% {
+        transform: rotate(0deg);
+    }
+
+    85% {
+        transform: rotate(-25deg);
+    }
+
+    90% {
+        transform: rotate(25deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
     }
 }

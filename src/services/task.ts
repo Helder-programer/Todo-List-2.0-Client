@@ -45,7 +45,7 @@ class TaskService {
                 'access-token': token,
             }
         });
-
+        
         return response.data;
     }
 
@@ -57,9 +57,9 @@ class TaskService {
         });
     }
 
-    public async searchTasksWithShortDeadline() {
+    public async searchTasksWithShortDeadlineOrLate() {
         const token = JSON.parse(localStorage.getItem('token') ?? '');
-        const response = await Api.get<ITask[]>('/tasks/tasksWithShortDeadline', {
+        const response = await Api.get<ITask[]>('/tasks/tasksWithShortDeadlineOrLate', {
             headers: { 'access-token': token }
         });
 

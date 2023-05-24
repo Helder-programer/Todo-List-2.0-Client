@@ -57,7 +57,6 @@ function Checklist({ checklistId }: IProps) {
         try {
             const searchedTasks = await TaskService.searchTask(currentChecklist.checklist_id, params);
             setTasks(searchedTasks);
-            console.log(currentFilters);
         } catch (error) {
             console.log(error);
         }

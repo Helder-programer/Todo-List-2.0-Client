@@ -1,6 +1,10 @@
-import React, { Dispatch, FormEvent, SetStateAction, useRef, useState } from 'react';
+import React, { Dispatch, FormEvent, SetStateAction, useState, useReducer, ChangeEvent } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
+import { ImSearch } from 'react-icons/im';
+import { FcClearFilters } from 'react-icons/fc';
+
 import { ISeachTaskDTO } from '../../../../services/task';
+import FormSelect from '../../../formSelect';
 
 interface IProps {
     searchTasks(params: ISeachTaskDTO): Promise<void>;
@@ -8,8 +12,46 @@ interface IProps {
     currentFilters: ISeachTaskDTO;
 }
 
+const taskStatusRadioButtons = [
+    {
+        label: 'All',
+        name: 'done',
+        value: -1
+    },
+    {
+        label: 'No',
+        name: 'done',
+        value: 0
+    },
+    {
+        label: 'Yes',
+        name: 'done',
+        value: 1
+    }
+];
+
+const prioritySelectOptions = [{ label: 'All', value: -1 }, { label: 'High', value: 1 }, { label: 'None', value: 0 }];
+
 const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
-    const formRef = useRef<HTMLFormElement | null>(null);
+    const [checkedState, setCheckedState] = useState<Array<boolean>>(
+        new Array(true, false, false)
+    );
+
+
+
+    const handleChangeRadioButton = (position: number) => {
+        const updatedCheckedState = checkedState.map((currentState, index) =>
+            index === position ? true : false
+        );
+        setCheckedState(updatedCheckedState);
+    }
+
+    const resetInputs = () => {
+        setCurrentFilters({ description: '', priority: -1, done: -1 });
+        setCheckedState([true, false, false]);
+    }
+
+
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         await searchTasks(currentFilters);
@@ -19,7 +61,7 @@ const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
     return (
         <>
             <Row className="pt-1" as="section">
-                <Form onSubmit={handleSubmit} ref={formRef}>
+                <Form onSubmit={handleSubmit}>
                     <fieldset>
                         <legend>Filters</legend>
                         <Row id="inputs">
@@ -40,18 +82,11 @@ const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
                             <Col>
 
                                 <Form.Label>Priority:</Form.Label>
-                                <Form.Select
-                                    size="sm"
-                                    name="priority"
+                                <FormSelect
+                                    options={prioritySelectOptions}
+                                    onChange={event => setCurrentFilters({ ...currentFilters, priority: Number(event.target.value) })}
                                     value={currentFilters.priority}
-                                    onChange={event => {
-                                        setCurrentFilters({ ...currentFilters, priority: Number(event.target.value) });
-                                    }}
-                                >
-                                    <option value="-1">All</option>
-                                    <option value="1">High</option>
-                                    <option value="0">None</option>
-                                </Form.Select>
+                                />
 
                             </Col>
                             <Col>
@@ -59,44 +94,35 @@ const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
                                 <Form.Label>Done:</Form.Label>
                                 <Row className="flex-row">
 
-                                    <Col className="d-flex gap-1">
-                                        <span>All</span>
-                                        <Form.Check
-                                            type="radio"
-                                            name="done"
-                                            value="-1"
-                                            onKeyUp={event => event.key === 'Enter' ? formRef.current?.requestSubmit(): ''}
-                                            onChange={event => {
-                                                setCurrentFilters({ ...currentFilters, done: Number(event.target.value) });
-                                            }}
-                                            defaultChecked
-                                        />
-                                    </Col>
-                                    <Col className="d-flex gap-1">
-                                        <span>Yes</span>
-                                        <Form.Check
-                                            type="radio"
-                                            name="done"
-                                            value="1"
-                                            onKeyUp={event => event.key === 'Enter' ? formRef.current?.submit(): ''}
-                                            onChange={event => {
-                                                setCurrentFilters({ ...currentFilters, done: Number(event.target.value) });
-                                            }}
-                                        />
-                                    </Col>
-                                    <Col className="d-flex gap-1">
-                                        <span>No</span>
-                                        <Form.Check
-                                            type="radio"
-                                            name="done"
-                                            value="0"
-                                            onKeyUp={event => event.key === 'Enter' ? formRef.current?.submit(): ''}
-                                            onChange={event => {
-                                                setCurrentFilters({ ...currentFilters, done: Number(event.target.value) });
-                                            }}
-                                        />
-                                    </Col>
+                                    {
+                                        taskStatusRadioButtons.map((currentRadioButton, index) => (
+                                            <Col className="d-flex gap-1" key={index}>
+                                                <span>{currentRadioButton.label}</span>
+                                                <Form.Check
+                                                    type="radio"
+                                                    name={currentRadioButton.name}
+                                                    value={currentRadioButton.value}
+                                                    checked={checkedState[index]}
+                                                    onChange={event => {
+                                                        setCurrentFilters({ ...currentFilters, done: Number(event.target.value) });
+                                                        handleChangeRadioButton(index);
+                                                    }}
+                                                />
+                                            </Col>
+                                        ))
+                                    }
                                 </Row>
+                            </Col>
+                            <Col md="auto">
+                                <div className="d-flex flex-column justify-content-center h-100" id="search-buttons">
+
+                                    <button className="btn-custom-transparent" type="submit">
+                                        <i><ImSearch className="text-primary"/></i>
+                                    </button>
+                                    <button className="btn-custom-transparent" onClick={resetInputs}>
+                                        <i><FcClearFilters /></i>
+                                    </button>
+                                </div>
                             </Col>
                         </Row>
                     </fieldset>

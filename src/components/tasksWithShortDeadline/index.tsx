@@ -14,9 +14,9 @@ function TasksWithShortDeadline() {
     const [error, setError] = useState<IAppError>({ isError: false, message: '' });
     const navigate = useNavigate();
 
-    const getTasksWithShortDeadline = async () => {
+    const getTasksWithShortDeadlineOrLate = async () => {
         try {
-            const tasksWithShortDeadline = await TaskService.searchTasksWithShortDeadline();
+            const tasksWithShortDeadline = await TaskService.searchTasksWithShortDeadlineOrLate();
             setTasksWithShortDeadline(tasksWithShortDeadline);
         } catch (err: any) {
             setError({ isError: true, message: err.message });
@@ -26,7 +26,7 @@ function TasksWithShortDeadline() {
 
     useEffect(() => {
         async function loadComponent() {
-            await getTasksWithShortDeadline();
+            await getTasksWithShortDeadlineOrLate();
         }
         loadComponent();
     }, []);

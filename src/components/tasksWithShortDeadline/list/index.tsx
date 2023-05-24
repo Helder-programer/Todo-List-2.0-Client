@@ -38,7 +38,7 @@ const List = ({ tasksWithShortDeadline }: IProps) => {
                                         <Popover id="checklist-popover">
                                             <Popover.Header as="h3">Checklist</Popover.Header>
                                             <Popover.Body>
-                                                <span className="checklist-name">Name: {currentTask.checklist?.name}</span>
+                                                <span className="checklist-name">Name: <strong className="fw-semibold">{currentTask.checklist?.name}</strong></span>
                                             </Popover.Body>
                                         </Popover>
 

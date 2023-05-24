@@ -22,9 +22,9 @@ function Header() {
     }
 
 
-    const getTasksWithShortDeadline = async () => {
+    const getTasksWithShortDeadlineOrLate = async () => {
         try {
-            const tasksWithShortDeadline = await TaskService.searchTasksWithShortDeadline();
+            const tasksWithShortDeadline = await TaskService.searchTasksWithShortDeadlineOrLate();
             setTasksWithShortDeadline(tasksWithShortDeadline);
         } catch (error) {
             console.log(error);
@@ -33,7 +33,7 @@ function Header() {
 
     useEffect(() => {
         async function loadComponent() {
-            await getTasksWithShortDeadline();
+            await getTasksWithShortDeadlineOrLate();
         }
         loadComponent();
     }, []);

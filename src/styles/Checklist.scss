@@ -26,6 +26,11 @@
 }
 
 
+
+#search-buttons button i {
+    font-size: 18pt;
+}
+
 @media screen and (max-width: 768px){
     #buttons {
         gap: 10px;
@@ -34,5 +39,15 @@
     #inputs {
         align-items: center;
         gap: 10px;
+    }
+
+    #search-buttons {
+        justify-content: flex-start !important;
+        gap: 15px;
+        flex-direction: row !important;
+    }
+
+    #search-buttons button {
+        width: 15px !important;
     }
 }
