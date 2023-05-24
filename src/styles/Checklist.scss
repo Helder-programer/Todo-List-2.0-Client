@@ -24,3 +24,15 @@
     position: relative;
     animation: taskAnimation 0.5s ease-in-out forwards;
 }
+
+
+@media screen and (max-width: 768px){
+    #buttons {
+        gap: 10px;
+    }
+    
+    #inputs {
+        align-items: center;
+        gap: 10px;
+    }
+}

@@ -1,4 +1,4 @@
-import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import React, { Dispatch, FormEvent, SetStateAction, useRef, useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import { ISeachTaskDTO } from '../../../../services/task';
 
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
-
+    const formRef = useRef<HTMLFormElement | null>(null);
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         await searchTasks(currentFilters);
@@ -19,10 +19,10 @@ const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
     return (
         <>
             <Row className="pt-1" as="section">
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} ref={formRef}>
                     <fieldset>
                         <legend>Filters</legend>
-                        <Row>
+                        <Row id="inputs">
                             <Col md="7">
 
                                 <Form.Label>Description:</Form.Label>
@@ -65,9 +65,11 @@ const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
                                             type="radio"
                                             name="done"
                                             value="-1"
+                                            onKeyUp={event => event.key === 'Enter' ? formRef.current?.requestSubmit(): ''}
                                             onChange={event => {
                                                 setCurrentFilters({ ...currentFilters, done: Number(event.target.value) });
                                             }}
+                                            defaultChecked
                                         />
                                     </Col>
                                     <Col className="d-flex gap-1">
@@ -76,6 +78,7 @@ const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
                                             type="radio"
                                             name="done"
                                             value="1"
+                                            onKeyUp={event => event.key === 'Enter' ? formRef.current?.submit(): ''}
                                             onChange={event => {
                                                 setCurrentFilters({ ...currentFilters, done: Number(event.target.value) });
                                             }}
@@ -87,6 +90,7 @@ const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
                                             type="radio"
                                             name="done"
                                             value="0"
+                                            onKeyUp={event => event.key === 'Enter' ? formRef.current?.submit(): ''}
                                             onChange={event => {
                                                 setCurrentFilters({ ...currentFilters, done: Number(event.target.value) });
                                             }}

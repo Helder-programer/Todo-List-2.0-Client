@@ -3,3 +3,8 @@
     position: relative;
     animation: taskAnimation 0.5s ease-in-out forwards;
 }
+
+
+.checklist-name {
+    text-overflow: "...";
+}

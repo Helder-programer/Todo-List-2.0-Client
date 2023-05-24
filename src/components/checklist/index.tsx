@@ -72,7 +72,7 @@ function Checklist({ checklistId }: IProps) {
     return (
         <>
             <Container className="pt-5" as='main'>
-                <Row className='flex-row align-items-center'>
+                <Row className='flex-row align-items-center' id="buttons">
                     <Col>
                         {
                             error.isError && <ErrorModal message={error.message} />

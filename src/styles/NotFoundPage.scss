@@ -2,6 +2,7 @@
 
 main {
     height: calc(100vh - 63px);
+    animation: fadeIn 0.5s ease-in-out 1;
 }
 
 #error-message {

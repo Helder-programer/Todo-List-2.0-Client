@@ -23,8 +23,12 @@ function Header() {
 
 
     const getTasksWithShortDeadline = async () => {
-        const tasksWithShortDeadline = await TaskService.searchTasksWithShortDeadline();
-        setTasksWithShortDeadline(tasksWithShortDeadline);
+        try {
+            const tasksWithShortDeadline = await TaskService.searchTasksWithShortDeadline();
+            setTasksWithShortDeadline(tasksWithShortDeadline);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
@@ -66,7 +70,17 @@ function Header() {
 
                                         <Dropdown.Menu>
                                             <Dropdown.Item onClick={() => logout()}>Logout</Dropdown.Item>
-                                            <Dropdown.Item className="text-danger" onClick={() => navigate('/tasksWithShortDeadline')}>Warning</Dropdown.Item>
+                                            {
+                                                tasksWithShortDeadline.length > 0 ?
+                                                    <Dropdown.Item
+                                                        className="text-danger"
+                                                        onClick={() => navigate('/tasksWithShortDeadline')}
+                                                    >
+                                                        Warning
+                                                    </Dropdown.Item>
+                                                    
+                                                    : ''
+                                            }
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </Navbar.Text>

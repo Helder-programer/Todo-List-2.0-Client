@@ -15,8 +15,13 @@ function TasksWithShortDeadline() {
     const navigate = useNavigate();
 
     const getTasksWithShortDeadline = async () => {
-        const tasksWithShortDeadline = await TaskService.searchTasksWithShortDeadline();
-        setTasksWithShortDeadline(tasksWithShortDeadline);
+        try {
+            const tasksWithShortDeadline = await TaskService.searchTasksWithShortDeadline();
+            setTasksWithShortDeadline(tasksWithShortDeadline);
+        } catch (err: any) {
+            setError({ isError: true, message: err.message });
+            console.log(err);
+        }
     }
 
     useEffect(() => {

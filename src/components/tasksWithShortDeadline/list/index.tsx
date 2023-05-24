@@ -11,16 +11,6 @@ interface IProps {
     tasksWithShortDeadline: ITask[];
 }
 
-const ChecklistPopover = (
-    <Popover id="checklist-popover">
-        <Popover.Header as="h3">Popover right</Popover.Header>
-        <Popover.Body>
-            And here's some <strong>amazing</strong> content. It's very engaging.
-            right?
-        </Popover.Body>
-    </Popover>
-);
-
 
 const List = ({ tasksWithShortDeadline }: IProps) => {
     const navigate = useNavigate();
@@ -42,7 +32,17 @@ const List = ({ tasksWithShortDeadline }: IProps) => {
                                 </Col>
 
                                 <Col md="auto">
-                                    <OverlayTrigger trigger="hover" placement="top" overlay={ChecklistPopover}>
+
+                                    <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={
+
+                                        <Popover id="checklist-popover">
+                                            <Popover.Header as="h3">Checklist</Popover.Header>
+                                            <Popover.Body>
+                                                <span className="checklist-name">Name: {currentTask.checklist?.name}</span>
+                                            </Popover.Body>
+                                        </Popover>
+
+                                    }>
                                         <i className='text-primary fs-4' style={{ cursor: 'pointer' }} onClick={() => navigate(`/checklists/${currentTask.checklist_id}`)}><GoChecklist /></i>
                                     </OverlayTrigger>
                                 </Col>
