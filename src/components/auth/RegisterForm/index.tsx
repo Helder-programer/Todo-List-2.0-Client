@@ -16,7 +16,7 @@ function RegisterForm() {
     const passwordInputRef = useRef<HTMLInputElement>(null);
     const btnRegisterRef = useRef<HTMLButtonElement>(null);
     const loaderRef = useRef<HTMLDivElement>(null);
-    const [error, setError] = useState<boolean>(false);
+    const [error, setError] = useState<any>(null);
     const [inputs, setInputs] = useState<IInputs>({ username: '', email: '', password: '' });
     const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ function RegisterForm() {
     }, []);
 
     const btnRegisterStyle = () => {
-        if (inputs.username != '' && inputs.email != '' && inputs.password != '') {
+        if (inputs.username !== '' && inputs.email !== '' && inputs.password !== '') {
 
             btnRegisterRef.current!.style.backgroundColor = 'rgb(67, 199, 243)';
             btnRegisterRef.current!.style.opacity = '1';
@@ -66,9 +66,13 @@ function RegisterForm() {
             await AuthService.register(inputs);
 
             return navigate('/login');
-        } catch (error) {
+        } catch (error: any) {
+
             console.log(error);
-            setError(true);
+            if (error.response)
+                setError(error.response.data.error);
+            else
+                setError(error.message);
             btnRegisterRef.current!.style.display = 'block';
             loaderRef.current!.style.display = 'none';
         }
@@ -94,14 +98,14 @@ function RegisterForm() {
                         <label htmlFor="">PASSWORD</label>
                     </div>
                     {
-                        error && <p className='text-danger m-0' style={{ fontSize: '10pt' }}>E-mail already exists</p>
+                        error && <p className='error-font m-0'>Error: {error}</p>
                     }
                     <div ref={loaderRef} className="loader"></div>
                     <button ref={btnRegisterRef} className="btn-login" type="submit" disabled><AiOutlineArrowRight /></button>
                 </form>
                 <div className="informations">
                     <Link to='/login'>LOGIN IN APPLICATION</Link>
-                    <Link to='/register' className="small-text">HOME</Link>
+                    <Link to='/' className="small-text">HOME</Link>
                 </div>
             </div>
         </>

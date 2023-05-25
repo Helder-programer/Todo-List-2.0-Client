@@ -39,7 +39,7 @@ function TasksWithShortDeadline() {
                         {
                             error.isError && <ErrorModal message={error.message} />
                         }
-                        <h3>Taks With Short Deadline</h3>
+                        <h3>Tasks With Short Deadline Or Late Tasks</h3>
                     </Col>
                     <Col md="auto">
                         <Button variant="outline-primary" onClick={() => navigate('/checklists')}>Your Checklists</Button>

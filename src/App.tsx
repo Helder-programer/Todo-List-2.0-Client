@@ -3,6 +3,7 @@ import './styles/App.scss';
 import MainRoutes from './routes';
 
 function App() {
+    document.title = 'To do List'
     return (
         <MainRoutes />
     );

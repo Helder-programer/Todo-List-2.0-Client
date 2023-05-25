@@ -14,7 +14,7 @@ function LoginForm() {
     const passwordInputRef = useRef<HTMLInputElement>(null);
     const btnLoginRef = useRef<HTMLButtonElement>(null);
     const loaderRef = useRef<HTMLDivElement>(null);
-    const [error, setError] = useState<boolean>(false);
+    const [error, setError] = useState<any>(null);
     const navigate = useNavigate();
     const [inputs, setInputs] = useState<IInputs>({ email: '', password: '' });
 
@@ -63,9 +63,12 @@ function LoginForm() {
             await AuthService.login(inputs);
 
             return navigate('/checklists');
-        } catch (error) {
+        } catch (error: any) {
             console.log(error);
-            setError(true);
+            if (error.response)
+                setError(error.response.data.error);
+            else
+                setError(error.message);
             btnLoginRef.current!.style.display = 'block';
             loaderRef.current!.style.display = 'none';
         }
@@ -86,7 +89,7 @@ function LoginForm() {
                         <label htmlFor="">PASSWORD</label>
                     </div>
                     {
-                        error && <p className='text-danger m-0' style={{ fontSize: '10pt' }}>Incorrect e-mail or password</p>
+                        error && <p className='error-font m-0'>Error: {error}</p>
                     }
                     <button ref={btnLoginRef} className="btn-login" type="submit" disabled><AiOutlineArrowRight /></button>
                     <div ref={loaderRef} className="loader"></div>

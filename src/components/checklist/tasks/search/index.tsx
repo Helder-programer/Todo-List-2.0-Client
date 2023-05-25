@@ -116,10 +116,10 @@ const Search = ({ searchTasks, setCurrentFilters, currentFilters }: IProps) => {
                             <Col md="auto">
                                 <div className="d-flex flex-column justify-content-center h-100" id="search-buttons">
 
-                                    <button className="btn-custom-transparent" type="submit">
+                                    <button className="btn-custom-transparent" type="submit" title="Search">
                                         <i><ImSearch className="text-primary"/></i>
                                     </button>
-                                    <button className="btn-custom-transparent" onClick={resetInputs}>
+                                    <button className="btn-custom-transparent" title="Clear filters" onClick={resetInputs}>
                                         <i><FcClearFilters /></i>
                                     </button>
                                 </div>
